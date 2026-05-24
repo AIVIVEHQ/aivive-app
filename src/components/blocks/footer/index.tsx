@@ -20,7 +20,7 @@ export default function Footer({ footer }: { footer: FooterType }) {
                       <img
                         src={footer.brand.logo.src}
                         alt={footer.brand.logo.alt || footer.brand.title}
-                        className="h-11"
+                        className="h-16 w-auto md:h-20"
                       />
                     )}
                     {footer.brand.title && (

@@ -51,7 +51,7 @@ export default function Header({ header }: { header: HeaderType }) {
                 <img
                   src={header.brand.logo.src}
                   alt={header.brand.logo.alt || header.brand.title}
-                  className="w-8"
+                  className="h-16 w-auto md:h-20"
                 />
               )}
               {header.brand?.title && (
@@ -177,7 +177,7 @@ export default function Header({ header }: { header: HeaderType }) {
                 <img
                   src={header.brand.logo.src}
                   alt={header.brand.logo.alt || header.brand.title}
-                  className="w-8"
+                  className="h-16 w-auto md:h-20"
                 />
               )}
               {header.brand?.title && (
@@ -203,7 +203,7 @@ export default function Header({ header }: { header: HeaderType }) {
                         <img
                           src={header.brand.logo.src}
                           alt={header.brand.logo.alt || header.brand.title}
-                          className="w-8"
+                          className="h-16 w-auto md:h-20"
                         />
                       )}
                       {header.brand?.title && (

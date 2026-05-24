@@ -7,24 +7,24 @@ import { AppContextProvider } from "@/contexts/app";
 import { Metadata } from "next";
 import { NextAuthSessionProvider } from "@/auth/session";
 import { NextIntlClientProvider } from "next-intl";
-import { Audiowide, DM_Sans, Space_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const dmSans = DM_Sans({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-geist",
 });
 
-const audiowide = Audiowide({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-audiowide",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-bricolage",
 });
 
-const spaceMono = Space_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+  weight: ["400", "500"],
+  variable: "--font-geist-mono",
 });
 
 export async function generateMetadata({
@@ -65,9 +65,9 @@ export default async function LocaleLayout({
         <AppContextProvider>
           <div
             className={cn(
-              dmSans.variable,
-              audiowide.variable,
-              spaceMono.variable,
+              geist.variable,
+              bricolage.variable,
+              geistMono.variable,
               "font-sans antialiased"
             )}
           >

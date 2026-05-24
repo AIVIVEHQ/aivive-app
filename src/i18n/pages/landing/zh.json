@@ -3,7 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "AIVIVE",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "AIVIVE"
+      },
       "url": "/"
     },
     "nav": {
@@ -33,7 +36,7 @@
     "buttons": [],
     "show_sign": true,
     "show_theme": false,
-    "show_locale": true
+    "show_locale": false
   },
   "hero": {
     "title": "用 AI 创造惊艳视觉作品",
@@ -374,8 +377,11 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "AIVIVE",
       "description": "用 AI 赋能创意。数秒内创造惊艳图片。",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "AIVIVE"
+      },
       "url": "/"
     },
     "copyright": "© 2025 • AIVIVE 保留所有权利。",

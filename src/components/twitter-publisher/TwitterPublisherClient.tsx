@@ -4,24 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
-  ExternalLink,
   ImageIcon,
   Loader2,
   RefreshCw,
   Send,
   Sparkles,
-  Twitter,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
-type TwitterAccount = {
-  connected: boolean;
-  username: string | null;
-  status: string;
-};
 
 type TwitterPost = {
   uuid: string;
@@ -41,7 +33,6 @@ type ApiResult = {
 };
 
 export default function TwitterPublisherClient() {
-  const [account, setAccount] = useState<TwitterAccount | null>(null);
   const [inputText, setInputText] = useState("");
   const [tweetText, setTweetText] = useState("");
   const [currentPost, setCurrentPost] = useState<TwitterPost | null>(null);
@@ -51,9 +42,9 @@ export default function TwitterPublisherClient() {
   const [isRegeneratingImage, setIsRegeneratingImage] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
 
   useEffect(() => {
-    void fetchAccount();
     void fetchHistory();
   }, []);
 
@@ -65,21 +56,12 @@ export default function TwitterPublisherClient() {
 
   const canPublish = useMemo(() => {
     return (
-      !!account?.connected &&
       !!currentPost?.uuid &&
-      !!currentPost.image_url &&
       !!tweetText.trim() &&
       tweetText.length <= 280 &&
       !isPublishing
     );
-  }, [account?.connected, currentPost?.uuid, currentPost?.image_url, tweetText, isPublishing]);
-
-  async function fetchAccount() {
-    const response = await fetch("/api/twitter/account");
-    if (response.ok) {
-      setAccount(await response.json());
-    }
-  }
+  }, [currentPost?.uuid, tweetText, isPublishing]);
 
   async function fetchHistory() {
     const response = await fetch("/api/twitter/posts/history?limit=12");
@@ -110,6 +92,7 @@ export default function TwitterPublisherClient() {
 
   async function handleGenerate() {
     setError("");
+    setNotice("");
     if (!inputText.trim()) {
       setError("Please enter source text before generating.");
       return;
@@ -130,6 +113,7 @@ export default function TwitterPublisherClient() {
   async function handleRegenerateText() {
     if (!currentPost?.uuid) return;
     setError("");
+    setNotice("");
 
     try {
       setIsRegeneratingText(true);
@@ -146,6 +130,7 @@ export default function TwitterPublisherClient() {
   async function handleRegenerateImage() {
     if (!currentPost?.uuid) return;
     setError("");
+    setNotice("");
 
     try {
       setIsRegeneratingImage(true);
@@ -161,17 +146,56 @@ export default function TwitterPublisherClient() {
   }
 
   async function handlePublish() {
-    if (!currentPost?.uuid) return;
+    if (!currentPost?.uuid || !tweetText.trim()) return;
     setError("");
+    setNotice("");
+    setIsPublishing(true);
+
+    let imageStatus: "clipboard" | "downloaded" | "opened" | "none" = "none";
 
     try {
-      setIsPublishing(true);
-      await callPostApi("/api/twitter/posts/publish", {
-        postUuid: currentPost.uuid,
-        tweetText,
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Publish failed");
+      if (currentPost.image_url) {
+        try {
+          const res = await fetch(currentPost.image_url);
+          if (!res.ok) throw new Error("Fetch failed");
+          const blob = await res.blob();
+          await navigator.clipboard.write([
+            new ClipboardItem({ [blob.type]: blob }),
+          ]);
+          imageStatus = "clipboard";
+        } catch {
+          try {
+            const res = await fetch(currentPost.image_url);
+            if (!res.ok) throw new Error("Fetch failed");
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `tweet-image-${currentPost.uuid}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            imageStatus = "downloaded";
+          } catch {
+            window.open(currentPost.image_url, "_blank", "noopener,noreferrer");
+            imageStatus = "opened";
+          }
+        }
+      }
+
+      const intentUrl = `https://x.com/intent/post?text=${encodeURIComponent(tweetText)}`;
+      window.open(intentUrl, "_blank", "noopener,noreferrer");
+
+      if (imageStatus === "clipboard") {
+        setNotice("Image copied to clipboard. Paste it (Cmd+V) inside X's composer.");
+      } else if (imageStatus === "downloaded") {
+        setNotice("Image downloaded. Drag it into X's composer.");
+      } else if (imageStatus === "opened") {
+        setNotice("Image opened in a new tab. Right-click to copy or save, then attach in X.");
+      } else {
+        setNotice("X composer opened. Add your image manually if needed.");
+      }
     } finally {
       setIsPublishing(false);
     }
@@ -182,27 +206,26 @@ export default function TwitterPublisherClient() {
   return (
     <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 lg:grid-cols-[minmax(0,1fr)_360px]">
       <section className="space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight">
-              Twitter/X AI Publisher
-            </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Generate one polished tweet with a matching image, then publish it to X.
-            </p>
-          </div>
-          <Button asChild variant={account?.connected ? "outline" : "default"}>
-            <a href="/api/twitter/auth/start">
-              <Twitter className="size-4" />
-              {account?.connected ? `@${account.username}` : "Connect Twitter/X"}
-            </a>
-          </Button>
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight">
+            Twitter/X AI Publisher
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Generate one polished tweet with a matching image, then post it on X.
+          </p>
         </div>
 
         {error && (
           <div className="flex items-start gap-2 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
             <AlertCircle className="mt-0.5 size-4" />
             <span>{error}</span>
+          </div>
+        )}
+
+        {notice && (
+          <div className="flex items-start gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-700 dark:text-emerald-300">
+            <CheckCircle2 className="mt-0.5 size-4" />
+            <span>{notice}</span>
           </div>
         )}
 
@@ -277,39 +300,13 @@ export default function TwitterPublisherClient() {
             </Button>
             <Button onClick={handlePublish} disabled={!canPublish}>
               {isPublishing ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
-              Publish
+              Post to X
             </Button>
           </div>
-
-          {currentPost?.twitter_tweet_url && (
-            <Button asChild variant="outline">
-              <a href={currentPost.twitter_tweet_url} target="_blank" rel="noreferrer">
-                <ExternalLink className="size-4" />
-                Open Published Tweet
-              </a>
-            </Button>
-          )}
         </div>
       </section>
 
       <aside className="space-y-4">
-        <div className="rounded-lg border bg-card p-4">
-          <h2 className="text-lg font-medium">Connection</h2>
-          <div className="mt-3 flex items-center gap-2 text-sm">
-            {account?.connected ? (
-              <>
-                <CheckCircle2 className="size-4 text-emerald-500" />
-                <span>Connected as @{account.username}</span>
-              </>
-            ) : (
-              <>
-                <AlertCircle className="size-4 text-amber-500" />
-                <span>Twitter/X must be connected before publishing.</span>
-              </>
-            )}
-          </div>
-        </div>
-
         <div className="rounded-lg border bg-card p-4">
           <h2 className="text-lg font-medium">Publishing History</h2>
           <div className="mt-4 space-y-3">

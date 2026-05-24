@@ -1,39 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { ChevronRightIcon, GlobeIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/contexts/app";
-import GeneratorWidget from "./GeneratorWidget";
-
-// Hook for scroll-triggered animations
-const useInView = (options: IntersectionObserverInit = { threshold: 0.1, rootMargin: '0px' }) => {
-  const ref = useRef(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsInView(true);
-        if (ref.current) observer.unobserve(ref.current);
-      }
-    }, options);
-
-    const currentRef = ref.current;
-    if (currentRef) observer.observe(currentRef);
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, []);
-
-  return [ref, isInView] as const;
-};
 
 export default function HeroSection() {
-  const [heroRef, heroInView] = useInView();
-  const t = useTranslations("homepage.hero");
   const { user, setShowSignModal } = useAppContext();
   const router = useRouter();
 
@@ -46,53 +16,49 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 md:pt-48 px-6 overflow-hidden">
-      <div
-        ref={heroRef}
-        className={`max-w-5xl mx-auto text-center relative z-10 transition-all duration-1000 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-      >
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/20 backdrop-blur-md text-xs font-mono uppercase tracking-wider text-primary mb-8 hover:bg-primary/10 transition-colors cursor-pointer animate-fade-up">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+    <section className="relative pt-24 pb-24 md:pt-32 md:pb-32">
+      <div className="mx-auto grid max-w-[1480px] grid-cols-12 gap-x-6 px-5 md:px-10">
+        {/* Asymmetric headline */}
+        <h1 className="col-span-12 font-display font-medium leading-[0.92] tracking-[-0.035em] text-foreground md:col-span-11">
+          <span className="block text-[clamp(2.75rem,9.5vw,9rem)]">
+            Worlds you can
           </span>
-          {t("badge")}
-          <ChevronRightIcon className="w-3 h-3" />
-        </div>
-
-        <h1
-          className="text-6xl md:text-7xl lg:text-8xl font-display tracking-wider uppercase text-foreground mb-8 leading-[0.95] bg-clip-text text-transparent"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, #FFFFFF 0%, #A8FFEB 25%, #4FFFD8 50%, #FFA682 75%, #FF8A5C 100%)",
-            filter:
-              "drop-shadow(0 0 50px oklch(0.902 0.152 174.5 / 0.35))",
-          }}
-        >
-          {t("title")} <br />
-          {t("title_highlight")}
+          <span className="block translate-x-[6%] text-[clamp(2.75rem,9.5vw,9rem)] italic text-primary md:translate-x-[14%]">
+            imagine,
+          </span>
+          <span className="block text-[clamp(2.75rem,9.5vw,9rem)]">
+            rendered overnight.
+          </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
-          {t("subtitle")}
-        </p>
+        {/* Subhead + CTAs */}
+        <div className="col-span-12 mt-14 grid grid-cols-12 items-end gap-x-6 md:mt-20">
+          <p className="col-span-12 max-w-[60ch] text-[17px] leading-relaxed text-muted-foreground md:col-span-7 md:col-start-1 md:text-[19px]">
+            AIVIVE turns a sentence into an image. Text-to-image,
+            image-to-image, and a one-click way to draft a tweet with a
+            matching picture from a single thought.
+          </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-           <button
-             onClick={handlePrimary}
-             className="h-12 px-8 rounded-full bg-primary text-primary-foreground font-semibold hover:scale-[1.03] transition-all flex items-center gap-2 shadow-[0_0_30px_oklch(0.902_0.152_174.5/0.3)]"
-           >
-             {t("cta_primary")} <ChevronRightIcon className="w-4 h-4" />
-           </button>
-           <button className="h-12 px-8 rounded-full bg-primary/5 border border-primary/20 text-foreground font-semibold hover:bg-primary/10 hover:border-primary/40 backdrop-blur-md transition-all flex items-center gap-2">
-             <GlobeIcon className="w-4 h-4" /> {t("cta_secondary")}
-           </button>
+          <div className="col-span-12 mt-8 flex flex-wrap items-center gap-4 md:col-span-5 md:mt-0 md:justify-end">
+            <button
+              type="button"
+              onClick={handlePrimary}
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_oklch(0.902_0.152_174.5/0.35)]"
+            >
+              <span>Begin a piece</span>
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+            </button>
+            <a
+              href="#gallery"
+              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span>Browse the shelf</span>
+              <span aria-hidden className="transition-transform group-hover:translate-y-0.5">↓</span>
+            </a>
+          </div>
         </div>
-      </div>
 
-      {/* Widget floats up into view */}
-      <GeneratorWidget />
+      </div>
     </section>
   );
 }
