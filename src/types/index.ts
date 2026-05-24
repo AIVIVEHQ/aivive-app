@@ -1,0 +1,1 @@
+export type AspectRatio = '16:9' | '1:1' | '9:16';

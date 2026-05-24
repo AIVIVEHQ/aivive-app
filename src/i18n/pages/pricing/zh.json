@@ -1,0 +1,108 @@
+{
+  "pricing": {
+    "name": "pricing",
+    "label": "定价",
+    "title": "简单透明的定价",
+    "description": "选择最适合您创意的方案。无隐藏费用。",
+    "groups": [],
+    "items": [
+      {
+        "title": "入门版",
+        "description": "适合爱好者体验 AI 创作。",
+        "features_title": "包含",
+        "features": [
+          "500 积分",
+          "标准生成速度",
+          "商业使用授权",
+          "访问公共画廊",
+          "标准分辨率 (1024x1024)",
+          "有效期 12 个月"
+        ],
+        "interval": "one-time",
+        "amount": 990,
+        "cn_amount": 6900,
+        "currency": "USD",
+        "price": "$9.9",
+        "original_price": "$19.9",
+        "unit": "USD",
+        "is_featured": false,
+        "tip": "一次性付费，无自动续费。",
+        "button": {
+          "title": "购买积分",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "starter_pack",
+        "product_name": "AIVIVE 入门积分包",
+        "credits": 500,
+        "valid_months": 12
+      },
+      {
+        "title": "专业版",
+        "description": "专为需要更多功能的创作者和专业人士设计。",
+        "label": "超值推荐",
+        "features_title": "包含入门版所有功能，另加",
+        "features": [
+          "2,000 积分",
+          "快速 GPU 生成",
+          "优先处理队列",
+          "隐私模式（不公开到画廊）",
+          "高清放大功能",
+          "优先技术支持",
+          "有效期 12 个月"
+        ],
+        "interval": "one-time",
+        "amount": 2990,
+        "cn_amount": 19900,
+        "currency": "USD",
+        "price": "$29.9",
+        "original_price": "$49.9",
+        "unit": "USD",
+        "is_featured": true,
+        "tip": "一次性付费，无自动续费。",
+        "button": {
+          "title": "购买积分",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "pro_pack",
+        "creem_product_id": "prod_5yQNIAz1UtWTyWVgzxjzJO",
+        "product_name": "AIVIVE 专业积分包",
+        "credits": 2000,
+        "valid_months": 12
+      },
+      {
+        "title": "企业版",
+        "description": "为机构和重度用户提供最强算力。",
+        "features_title": "包含专业版所有功能，另加",
+        "features": [
+          "5,000 积分",
+          "并发生成任务",
+          "最高优先级处理",
+          "API 访问权限",
+          "专属客服支持",
+          "抢先体验新模型",
+          "有效期 12 个月"
+        ],
+        "interval": "one-time",
+        "amount": 6990,
+        "cn_amount": 49900,
+        "currency": "USD",
+        "price": "$69.9",
+        "original_price": "$99.9",
+        "unit": "USD",
+        "is_featured": false,
+        "tip": "一次性付费，无自动续费。",
+        "button": {
+          "title": "购买积分",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "org_pack",
+        "product_name": "AIVIVE 企业积分包",
+        "credits": 5000,
+        "valid_months": 12
+      }
+    ]
+  }
+}

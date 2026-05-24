@@ -1,0 +1,349 @@
+{
+  "metadata": {
+    "title": "AIVIVE — The First Recursive AI Protocol",
+    "description": "AIVIVE is an AI image feed where a programmable share of platform revenue automatically deflates the underlying network. Use the product. The asset becomes rarer.",
+    "keywords": "AIVIVE, Recursive AI Protocol, AI image generation, Solana, on-chain buyback and burn"
+  },
+  "user": {
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "credits": "Credits",
+    "api_keys": "API Keys",
+    "my_orders": "My Orders",
+    "user_center": "User Center",
+    "admin_system": "Admin System",
+    "my_history": "My History"
+  },
+  "sign_modal": {
+    "sign_in_title": "Sign In",
+    "sign_in_description": "Sign in to your account",
+    "sign_up_title": "Sign Up",
+    "sign_up_description": "Create your AIVIVE account",
+    "reset_title": "Reset password",
+    "reset_description": "We'll email you a code to reset your password.",
+    "email_title": "Email",
+    "email_placeholder": "you@example.com",
+    "password_title": "Password",
+    "password_placeholder": "At least 8 characters",
+    "new_password_title": "New password",
+    "code_title": "Verification code",
+    "code_placeholder": "6-digit code",
+    "send_code": "Send code",
+    "resend_in": "Resend in {seconds}s",
+    "code_sent": "Code sent. Check your inbox.",
+    "forgot_password": "Forgot password?",
+    "back_to_signin": "Back to sign in",
+    "or": "Or",
+    "continue": "Continue",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "email_sign_in": "Sign in with Email",
+    "google_sign_in": "Sign in with Google",
+    "github_sign_in": "Sign in with GitHub",
+    "submit_signin": "Sign In",
+    "submit_signup": "Create account",
+    "submit_reset": "Reset password",
+    "loading": "Please wait...",
+    "close_title": "Close",
+    "cancel_title": "Cancel"
+  },
+  "my_orders": {
+    "title": "My Orders",
+    "description": "orders paid with AIVIVE.",
+    "no_orders": "No orders found",
+    "tip": "",
+    "activate_order": "Activate Order",
+    "actived": "Activated",
+    "join_discord": "Join Discord",
+    "read_docs": "Read Docs",
+    "table": {
+      "order_no": "Order No",
+      "email": "Email",
+      "product_name": "Product Name",
+      "amount": "Amount",
+      "paid_at": "Paid At",
+      "github_username": "GitHub Username",
+      "status": "Status"
+    }
+  },
+  "my_credits": {
+    "title": "My Credits",
+    "left_tip": "left credits: {left_credits}",
+    "no_credits": "No credits records",
+    "recharge": "Recharge",
+    "table": {
+      "trans_no": "Trans No",
+      "trans_type": "Trans Type",
+      "credits": "Credits",
+      "updated_at": "Updated At",
+      "status": "Status"
+    }
+  },
+  "api_keys": {
+    "title": "API Keys",
+    "tip": "Please keep your apikey safe to avoid leaks",
+    "no_api_keys": "No API Keys",
+    "create_api_key": "Create API Key",
+    "table": {
+      "name": "Name",
+      "key": "Key",
+      "created_at": "Created At"
+    },
+    "form": {
+      "name": "Name",
+      "name_placeholder": "API Key Name",
+      "submit": "Submit"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "News, resources, and updates about AIVIVE",
+    "read_more_text": "Read More"
+  },
+  "my_invites": {
+    "title": "My Invites",
+    "description": "View your invite records",
+    "no_invites": "No invite records found",
+    "my_invite_link": "My Invite Link",
+    "edit_invite_link": "Edit Invite Link",
+    "copy_invite_link": "Copy Invite Link",
+    "invite_code": "Invite Code",
+    "invite_tip": "Invite 1 friend to buy AIVIVE, reward $50.",
+    "invite_balance": "Invite Reward Balance",
+    "total_invite_count": "Total Invite Count",
+    "total_paid_count": "Total Paid Count",
+    "total_award_amount": "Total Award Amount",
+    "update_invite_code": "Set Invite Code",
+    "update_invite_code_tip": "Input your custom invite code",
+    "update_invite_button": "Save",
+    "no_orders": "You can't invite others before you bought AIVIVE",
+    "no_affiliates": "You're not allowed to invite others, please contact us to apply for permission.",
+    "table": {
+      "invite_time": "Invite Time",
+      "invite_user": "Invite User",
+      "status": "Status",
+      "reward_percent": "Reward Percent",
+      "reward_amount": "Reward Amount",
+      "pending": "Pending",
+      "completed": "Completed"
+    }
+  },
+  "feedback": {
+    "title": "Feedback",
+    "description": "We'd love to hear what went well or how we can improve the product experience.",
+    "submit": "Submit",
+    "loading": "Submitting...",
+    "contact_tip": "Other ways to contact us",
+    "rating_tip": "How do you feel about AIVIVE?",
+    "placeholder": "Leave your words here..."
+  },
+  "generation": {
+    "meta": {
+      "title": "AI Image Generation",
+      "description": "Transform your ideas into stunning images with AI"
+    },
+    "title": "AI Image Generation",
+    "subtitle": "Transform your ideas into stunning images with AI",
+    "prompt_label": "Describe the image you want to generate",
+    "prompt_placeholder": "Example: A cute orange cat sitting on a windowsill, looking at the sunset, photorealistic, warm lighting",
+    "prompt_tip": "Be specific and descriptive for best results",
+    "aspect_ratio_label": "Aspect Ratio",
+    "insufficient_credits": "Insufficient credits",
+    "generate_button": "Generate Image",
+    "generating": "Generating...",
+    "processing_title": "Generating your image...",
+    "processing_subtitle": "This usually takes 30-60 seconds",
+    "success_title": "Image generated successfully!",
+    "download_button": "Download",
+    "generate_another": "Generate Another",
+    "delete_button": "Delete",
+    "deleting": "Deleting...",
+    "view_history": "View all your generations",
+    "credit_balance": "Credit Balance",
+    "buy_credits": "Buy Credits"
+  },
+  "history": {
+    "meta": {
+      "title": "My Generations",
+      "description": "View and manage all your AI-generated images"
+    },
+    "title": "My Generations",
+    "subtitle": "View and manage all your AI-generated images",
+    "filter_label": "Filter by status:",
+    "filter_all": "All",
+    "filter_success": "Success",
+    "filter_failed": "Failed",
+    "filter_processing": "Processing",
+    "filter_pending": "Pending",
+    "no_generations": "No generations found",
+    "create_first": "Create your first generation",
+    "previous_page": "Previous",
+    "next_page": "Next",
+    "page_of": "Page {page} of {total}",
+    "delete_confirm": "Are you sure you want to delete this generation?",
+    "delete_success": "Generation deleted",
+    "download_started": "Download started"
+  },
+  "gallery": {
+    "meta": {
+      "title": "Public Gallery",
+      "description": "Explore stunning AI-generated images from our community"
+    },
+    "title": "Public Gallery",
+    "subtitle": "Explore stunning AI-generated images from our community",
+    "filters": "Filters",
+    "aspect_ratio": "Aspect Ratio",
+    "all_ratios": "All Ratios",
+    "sort_by": "Sort By",
+    "most_recent": "Most Recent",
+    "most_popular": "Most Popular",
+    "clear_filters": "Clear Filters",
+    "no_images_title": "No Public Images Yet",
+    "no_images_description": "Be the first to share your work! Start creating and make your images public.",
+    "start_creating": "Start Creating",
+    "previous_page": "Previous",
+    "next_page": "Next",
+    "page_of": "Page {page} of {total}",
+    "fetch_error": "Failed to load gallery",
+    "liked": "Liked",
+    "unliked": "Unliked",
+    "like_failed": "Failed to like",
+    "login_to_like": "Please sign in to like",
+    "prompt_copied": "Prompt copied",
+    "download_started": "Download started",
+    "image_details": "Image Details",
+    "prompt": "Prompt",
+    "copy": "Copy",
+    "metadata": "Metadata",
+    "likes": "Likes",
+    "views": "Views",
+    "dimensions": "Dimensions",
+    "like_button": "Like",
+    "liked_button": "Liked",
+    "download": "Download"
+  },
+  "homepage": {
+    "generation": {
+      "title": "Turn Ideas into Reality with AI",
+      "subtitle": "Generate professional-quality images in seconds",
+      "try_these": "💡 Try these prompts:",
+      "example_1": "A cute orange cat sitting on a windowsill, looking at the sunset, realistic style, warm lighting",
+      "example_2": "Cyberpunk style future city night scene, neon lights, rain-soaked streets, cinematic",
+      "example_3": "Watercolor style spring garden, flowers blooming, butterflies dancing, soft tones",
+      "cta_guest": "Start Creating for Free",
+      "cta_bonus": "✨ Get 100 Free Credits on Sign Up",
+      "credit_balance": "Credit Balance",
+      "buy_credits": "Buy Credits",
+      "view_history": "View My Gallery",
+      "view_gallery": "Browse Public Gallery"
+    },
+    "hero": {
+      "badge": "AIVIVE — The First Recursive AI Protocol",
+      "title": "The first",
+      "title_highlight": "Recursive AI Protocol.",
+      "subtitle": "An AI image feed where a programmable share of platform revenue automatically deflates the underlying network. Use the product. The asset becomes rarer.",
+      "cta_primary": "Start Creating",
+      "cta_secondary": "Read Whitepaper"
+    },
+    "generator": {
+      "version": "AIVIVE v1.0",
+      "tab_text_to_image": "Text to Image",
+      "tab_image_to_image": "Image to Image",
+      "reference_image": "Reference Image",
+      "click_upload": "Click to upload",
+      "or_drag_file": "or drag & drop file here",
+      "file_size_limit": "JPG, PNG up to 5MB",
+      "prompt": "Prompt",
+      "clear": "Clear",
+      "placeholder_text2img": "Describe your vision in detail...",
+      "placeholder_img2img": "Describe the changes you want to make...",
+      "aspect_ratio": "Aspect Ratio",
+      "generate": "Generate",
+      "generating": "Generating...",
+      "estimated_time": "Est. time",
+      "cost": "Cost",
+      "credits": "Credits",
+      "canvas_empty": "Canvas Empty",
+      "canvas_description": "Enter a prompt to start generating high-fidelity visuals. Support for 4K upscaling available.",
+      "ai_label": "AI",
+      "download": "Download",
+      "copied": "Copied",
+      "view_history": "My History"
+    },
+    "showcase": {
+      "title": "Made with AIVIVE",
+      "subtitle": "Join the creators building the recursive AI feed — every image sharpens the loop.",
+      "view_gallery": "View Community Gallery",
+      "prompt_enhanced": "Prompt Enhanced",
+      "images": {
+        "alpine_cabin": "Alpine Cabin",
+        "cyber_santa": "Cyber Santa",
+        "macro_ornament": "Macro Ornament",
+        "nyc_reindeer": "NYC Reindeer"
+      }
+    },
+    "features": {
+      "title": "Built for the recursive loop",
+      "subtitle": "A complete creative toolkit wired into a programmable on-chain economy.",
+      "natural_language": {
+        "title": "Natural Language Editing",
+        "desc": "Edit any image with conversational prompts. AIVIVE interprets complex directions."
+      },
+      "real_time_latency": {
+        "title": "Real-time Latency",
+        "desc": "Preview generations in under 200ms — usage flows straight into the burn cycle."
+      },
+      "character_consistency": {
+        "title": "Character Consistency",
+        "desc": "Preserve faces and styles across multiple generations."
+      },
+      "infinite_canvas": {
+        "title": "Infinite Canvas",
+        "desc": "Outpaint your images in any direction to fit any aspect ratio."
+      },
+      "learn_more": "Learn more"
+    },
+    "faq": {
+      "title": "Questions?",
+      "subtitle": "Everything about the recursive protocol, the burn cycle, and creating on AIVIVE.",
+      "contact_support": "Contact Support",
+      "question_1": {
+        "q": "What is the Recursive AI Protocol?",
+        "a": "Every time you generate or pay on AIVIVE, a programmable share of revenue flows on-chain into a buyback and burn. Use the product — the underlying network asset becomes rarer."
+      },
+      "question_2": {
+        "q": "Is commercial use permitted?",
+        "a": "Yes. All Pro and Enterprise plans include a full commercial license for generated assets."
+      },
+      "question_3": {
+        "q": "Can I edit specific parts of an image?",
+        "a": "Our new Inpainting 2.0 allows you to brush over specific areas and describe changes with natural language."
+      }
+    },
+    "cta": {
+      "title": "Join the creative economy.",
+      "button": "Start Creating"
+    },
+    "footer": {
+      "brand": {
+        "title": "AIVIVE",
+        "description": "The first Recursive AI Protocol — AI that gives. Alive. Warm. Sharp."
+      },
+      "description": "An AI image feed wired into a verifiable on-chain buyback and burn. Every generation tightens the loop.",
+      "copyright": "© 2026 AIVIVE Labs. All rights reserved.",
+      "system_status": "System Status: Operational",
+      "sections": {
+        "platform": "Platform",
+        "company": "Company",
+        "legal": "Legal",
+        "resources": "Resources"
+      },
+      "links": {
+        "platform": ["Generator", "Showcase", "Pricing", "Enterprise"],
+        "company": ["About", "Blog", "Careers", "Contact"],
+        "legal": ["Privacy", "Terms", "Security"],
+        "resources": ["Documentation", "Community", "Help Center"]
+      }
+    }
+  }
+}

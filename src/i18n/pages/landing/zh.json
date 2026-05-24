@@ -1,0 +1,487 @@
+{
+  "template": "aivive-template-one",
+  "theme": "light",
+  "header": {
+    "brand": {
+      "title": "AIVIVE",
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "AI 生图",
+          "url": "/generate",
+          "icon": "RiMagicLine"
+        },
+        {
+          "title": "推文发布",
+          "url": "/twitter-publisher",
+          "icon": "RiTwitterXLine"
+        },
+        {
+          "title": "公共图库",
+          "url": "/gallery",
+          "icon": "RiGalleryLine"
+        },
+        {
+          "title": "定价",
+          "url": "/pricing",
+          "icon": "RiMoneyDollarCircleLine"
+        }
+      ]
+    },
+    "buttons": [],
+    "show_sign": true,
+    "show_theme": false,
+    "show_locale": true
+  },
+  "hero": {
+    "title": "用 AI 创造惊艳视觉作品",
+    "highlight_text": "惊艳视觉",
+    "description": "AIVIVE 将您的想象力变为现实。<br/>数秒内生成专业级图片和视频。",
+    "announcement": {
+      "label": "2025",
+      "title": "✨ 全新功能：图片生图",
+      "url": "/pricing"
+    },
+    "tip": "",
+    "buttons": [
+      {
+        "title": "开始创作",
+        "icon": "RiFlashlightFill",
+        "url": "/pricing",
+        "target": "_self",
+        "variant": "default"
+      },
+      {
+        "title": "查看图库",
+        "icon": "RiGalleryLine",
+        "url": "/gallery",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ],
+    "show_happy_users": true,
+    "show_badge": false
+  },
+  "branding": {
+    "title": "基于前沿 AI 技术构建",
+    "items": [
+      {
+        "title": "Next.js",
+        "image": {
+          "src": "/imgs/logos/nextjs.svg",
+          "alt": "Next.js"
+        }
+      },
+      {
+        "title": "React",
+        "image": {
+          "src": "/imgs/logos/react.svg",
+          "alt": "React"
+        }
+      },
+      {
+        "title": "TailwindCSS",
+        "image": {
+          "src": "/imgs/logos/tailwindcss.svg",
+          "alt": "TailwindCSS"
+        }
+      },
+      {
+        "title": "Shadcn/UI",
+        "image": {
+          "src": "/imgs/logos/shadcn.svg",
+          "alt": "Shadcn/UI"
+        }
+      },
+      {
+        "title": "Vercel",
+        "image": {
+          "src": "/imgs/logos/vercel.svg",
+          "alt": "Vercel"
+        }
+      }
+    ]
+  },
+  "introduce": {
+    "name": "introduce",
+    "title": "什么是 AIVIVE",
+    "label": "介绍",
+    "description": "AIVIVE 是您的个人 AI 艺术家。为您的创意项目、营销活动等创造惊艳视觉作品。",
+    "image": {
+      "src": "/imgs/features/1.png"
+    },
+    "items": [
+      {
+        "title": "多样风格",
+        "description": "从数百种艺术提示词和风格中选择，满足任何创意需求。",
+        "icon": "RiMagicLine"
+      },
+      {
+        "title": "高品质输出",
+        "description": "生成适合打印和数字分享的专业级图片。",
+        "icon": "RiHdLine"
+      },
+      {
+        "title": "快速生成",
+        "description": "数秒内获得您的视觉作品，而不是数小时。",
+        "icon": "RiSpeedLine"
+      }
+    ]
+  },
+  "benefit": {
+    "name": "benefit",
+    "title": "为什么选择 AIVIVE",
+    "label": "优势",
+    "description": "将您的创意愿景变为现实的完美工具。",
+    "items": [
+      {
+        "title": "无限创意",
+        "description": "从肖像到风景，可视化您能想象的任何内容。",
+        "icon": "RiLightbulbFlashLine",
+        "image": {
+          "src": "/imgs/features/2.png"
+        }
+      },
+      {
+        "title": "商业授权",
+        "description": "在付费计划中生成的所有图片都附带完整的商业许可。",
+        "icon": "RiCopyrightLine",
+        "image": {
+          "src": "/imgs/features/3.png"
+        }
+      },
+      {
+        "title": "易于使用",
+        "description": "无需设计技能。只需描述您想要的内容，让 AI 完成其余工作。",
+        "icon": "RiUserSmileLine",
+        "image": {
+          "src": "/imgs/features/4.png"
+        }
+      }
+    ]
+  },
+  "usage": {
+    "name": "usage",
+    "title": "如何使用 AIVIVE 创作",
+    "description": "通过简单步骤创作您的杰作：",
+    "image": {
+      "src": "/imgs/features/1.png"
+    },
+    "image_position": "left",
+    "text_align": "center",
+    "items": [
+      {
+        "title": "输入提示词",
+        "description": "描述您的创意愿景，例如：'日落时分的宁静山景'。",
+        "image": {
+          "src": "/imgs/features/5.png"
+        }
+      },
+      {
+        "title": "选择风格",
+        "description": "从\"水彩\"、\"3D 渲染\"、\"油画\"等风格中选择。",
+        "image": {
+          "src": "/imgs/features/6.png"
+        }
+      },
+      {
+        "title": "生成",
+        "description": "点击生成，即刻看到您的创意变为现实。",
+        "image": {
+          "src": "/imgs/features/7.png"
+        }
+      },
+      {
+        "title": "下载",
+        "description": "保存您的高分辨率图片并分享创意。",
+        "image": {
+          "src": "/imgs/features/8.png"
+        }
+      }
+    ]
+  },
+  "feature": {
+    "name": "feature",
+    "title": "核心功能",
+    "description": "满足您创意项目所需的一切。",
+    "items": [
+      {
+        "title": "文字生图",
+        "description": "将文字描述转化为精美图片。",
+        "icon": "RiText"
+      },
+      {
+        "title": "图片生图",
+        "description": "将现有照片转换为新风格。",
+        "icon": "RiImage2Line"
+      },
+      {
+        "title": "图像修复",
+        "description": "使用 AI 编辑图片的特定部分。",
+        "icon": "RiEditBoxLine"
+      },
+      {
+        "title": "高清放大",
+        "description": "将图像分辨率提升至 4 倍。",
+        "icon": "RiZoomInLine"
+      },
+      {
+        "title": "风格迁移",
+        "description": "为您的照片应用艺术风格。",
+        "icon": "RiPaletteLine"
+      },
+      {
+        "title": "背景移除",
+        "description": "瞬间移除背景，适用于产品照片。",
+        "icon": "RiEraserLine"
+      }
+    ]
+  },
+  "stats": {
+    "name": "stats",
+    "label": "统计",
+    "title": "创作者的信赖之选",
+    "description": "加入数千位使用 AI 创造魔法的创作者。",
+    "icon": "FaRegHeart",
+    "items": [
+      {
+        "title": "生成图片",
+        "label": "1M+",
+        "description": "本季度"
+      },
+      {
+        "title": "满意用户",
+        "label": "50k+",
+        "description": "全球范围"
+      },
+      {
+        "title": "可用风格",
+        "label": "100+",
+        "description": "艺术风格"
+      }
+    ]
+  },
+  "testimonial": {
+    "name": "testimonial",
+    "label": "用户评价",
+    "title": "用户如何评价",
+    "description": "看看 AIVIVE 如何帮助创作者将愿景变为现实。",
+    "icon": "GoThumbsup",
+    "items": [
+      {
+        "title": "陈大卫",
+        "label": "AIWallpaper.shop 创始人",
+        "description": "AIVIVE 为我们节省了数月的开发时间。我们仅用 2 天就启动了 AI 壁纸业务，一周内就获得了第一个付费客户！",
+        "image": {
+          "src": "/imgs/users/1.png"
+        }
+      },
+      {
+        "title": "金瑞秋",
+        "label": "HeyBeauty.ai 技术总监",
+        "description": "预构建的 AI 基础设施是一个游戏规则改变者。我们无需担心架构 - 只需专注于 AI 美容技术并快速上线。",
+        "image": {
+          "src": "/imgs/users/2.png"
+        }
+      },
+      {
+        "title": "马库斯",
+        "label": "独立开发者",
+        "description": "作为独立开发者，AIVIVE 给了我所需的一切 - 身份验证、支付、AI 集成和漂亮的 UI。一个周末就启动了我的 SaaS！",
+        "image": {
+          "src": "/imgs/users/3.png"
+        }
+      },
+      {
+        "title": "索菲亚",
+        "label": "Melodisco CEO",
+        "description": "这些模板可直接用于生产且高度可定制。我们用几小时而不是几个月就建立了 AI 音乐平台。上市时间令人难以置信！",
+        "image": {
+          "src": "/imgs/users/4.png"
+        }
+      },
+      {
+        "title": "詹姆斯",
+        "label": "GPTs.works 技术主管",
+        "description": "AIVIVE 的基础设施非常稳固。我们从 0 扩展到 1 万用户都没碰后端。这是我们 AI 创业最好的投资。",
+        "image": {
+          "src": "/imgs/users/5.png"
+        }
+      },
+      {
+        "title": "张安娜",
+        "label": "创业者",
+        "description": "从想法到上线只用了 3 天！AIVIVE 的模板和部署工具让我们能够以令人难以置信的速度测试 AI 业务概念。",
+        "image": {
+          "src": "/imgs/users/6.png"
+        }
+      }
+    ]
+  },
+  "faq": {
+    "name": "faq",
+    "label": "常见问题",
+    "title": "常见问题",
+    "description": "有疑问？我们为您解答。",
+    "items": [
+      {
+        "title": "什么是 AIVIVE？",
+        "description": "AIVIVE 是一个先进的 AI 图像生成平台，允许您从文字描述和参考图片创建高质量图像。"
+      },
+      {
+        "title": "免费使用吗？",
+        "description": "我们提供有限积分的免费试用。如需更多功能和更高限制，您可以升级到付费计划。"
+      },
+      {
+        "title": "可以商用生成的图片吗？",
+        "description": "是的，付费计划中生成的所有图片都附带完整的商业许可。"
+      },
+      {
+        "title": "积分系统如何运作？",
+        "description": "每次生成根据设置和质量消耗一定数量的积分。积分每月更新。"
+      },
+      {
+        "title": "提供退款吗？",
+        "description": "是的，如果您对我们的服务不满意，我们提供 7 天退款保证。"
+      },
+      {
+        "title": "可以取消订阅吗？",
+        "description": "您可以随时从帐户设置中取消订阅。"
+      }
+    ]
+  },
+  "cta": {
+    "name": "cta",
+    "title": "准备好创造魔法了吗？",
+    "description": "立即开始生成惊艳图片。",
+    "buttons": [
+      {
+        "title": "免费开始",
+        "url": "/login",
+        "target": "_self",
+        "icon": "GoArrowUpRight"
+      },
+      {
+        "title": "查看定价",
+        "url": "/pricing",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ]
+  },
+  "footer": {
+    "name": "footer",
+    "brand": {
+      "title": "AIVIVE",
+      "description": "用 AI 赋能创意。数秒内创造惊艳图片。",
+      "url": "/"
+    },
+    "copyright": "© 2025 • AIVIVE 保留所有权利。",
+    "nav": {
+      "items": [
+        {
+          "title": "关于",
+          "children": [
+            {
+              "title": "功能特点",
+              "url": "/#feature",
+              "target": "_self"
+            },
+            {
+              "title": "案例展示",
+              "url": "/#showcase",
+              "target": "_self"
+            },
+            {
+              "title": "定价",
+              "url": "/#pricing",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "资源",
+          "children": [
+            {
+              "title": "文档",
+              "url": "https://docs.aivive.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "组件",
+              "url": "https://aivive.ai/blocks",
+              "target": "_blank"
+            },
+            {
+              "title": "模板",
+              "url": "https://aivive.ai/showcase",
+              "target": "_blank"
+            }
+          ]
+        },
+        {
+          "title": "友情链接",
+          "children": [
+            {
+              "title": "ThinkAny",
+              "url": "https://thinkany.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "HeyBeauty",
+              "url": "https://heybeauty.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "Pagen",
+              "url": "https://pagen.so",
+              "target": "_blank"
+            }
+          ]
+        }
+      ]
+    },
+    "social": {
+      "items": [
+        {
+          "title": "X",
+          "icon": "RiTwitterXFill",
+          "url": "https://x.com/aivive",
+          "target": "_blank"
+        },
+        {
+          "title": "Github",
+          "icon": "RiGithubFill",
+          "url": "https://github.com/aivive",
+          "target": "_blank"
+        },
+        {
+          "title": "Discord",
+          "icon": "RiDiscordFill",
+          "url": "https://discord.gg/HQNnrzjZQS",
+          "target": "_blank"
+        },
+        {
+          "title": "邮箱",
+          "icon": "RiMailLine",
+          "url": "mailto:support@aivive.ai",
+          "target": "_self"
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "隐私政策",
+          "url": "/privacy-policy"
+        },
+        {
+          "title": "服务条款",
+          "url": "/terms-of-service"
+        }
+      ]
+    }
+  }
+}

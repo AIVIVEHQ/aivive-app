@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1750685769393,
+      "tag": "0000_wealthy_squirrel_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756825198223,
+      "tag": "0001_silent_talisman",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1760629451235,
+      "tag": "0002_chilly_spitfire",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1797508800000,
+      "tag": "0003_twitter_ai_publisher",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1800000000000,
+      "tag": "0004_verification_codes",
+      "breakpoints": true
+    }
+  ]
+}

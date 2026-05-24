@@ -1,0 +1,108 @@
+{
+  "pricing": {
+    "name": "pricing",
+    "label": "Pricing",
+    "title": "Simple, Transparent Pricing",
+    "description": "Choose the perfect plan for your creative needs. No hidden fees.",
+    "groups": [],
+    "items": [
+      {
+        "title": "Starter",
+        "description": "Perfect for hobbyists and trying out AI generation.",
+        "features_title": "Includes",
+        "features": [
+          "500 Credits",
+          "Standard Generation Speed",
+          "Commercial Usage License",
+          "Public Gallery Access",
+          "Standard Resolution (1024x1024)",
+          "Valid for 12 months"
+        ],
+        "interval": "one-time",
+        "amount": 990,
+        "cn_amount": 6900,
+        "currency": "USD",
+        "price": "$9.9",
+        "original_price": "$19.9",
+        "unit": "USD",
+        "is_featured": false,
+        "tip": "One-time payment. No monthly subscription.",
+        "button": {
+          "title": "Buy Credits",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "starter_pack",
+        "product_name": "AIVIVE Starter Pack",
+        "credits": 500,
+        "valid_months": 12
+      },
+      {
+        "title": "Professional",
+        "description": "For creators and professionals who need more power.",
+        "label": "Best Value",
+        "features_title": "Everything in Starter, plus",
+        "features": [
+          "2,000 Credits",
+          "Fast GPU Generation",
+          "Priority Queue Access",
+          "Private Mode (Hidden from Gallery)",
+          "Upscaling Features",
+          "Priority Support",
+          "Valid for 12 months"
+        ],
+        "interval": "one-time",
+        "amount": 2990,
+        "cn_amount": 19900,
+        "currency": "USD",
+        "price": "$29.9",
+        "original_price": "$49.9",
+        "unit": "USD",
+        "is_featured": true,
+        "tip": "One-time payment. No monthly subscription.",
+        "button": {
+          "title": "Buy Credits",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "pro_pack",
+        "creem_product_id": "prod_578VQAnhVFXHI8sPklii3f",
+        "product_name": "AIVIVE Professional Pack",
+        "credits": 2000,
+        "valid_months": 12
+      },
+      {
+        "title": "Organization",
+        "description": "Maximum power for agencies and heavy users.",
+        "features_title": "Everything in Professional, plus",
+        "features": [
+          "5,000 Credits",
+          "Concurrent Generations",
+          "Highest Priority Processing",
+          "API Access",
+          "Dedicated Support",
+          "Early Access to New Models",
+          "Valid for 12 months"
+        ],
+        "interval": "one-time",
+        "amount": 6990,
+        "cn_amount": 49900,
+        "currency": "USD",
+        "price": "$69.9",
+        "original_price": "$99.9",
+        "unit": "USD",
+        "is_featured": false,
+        "tip": "One-time payment. No monthly subscription.",
+        "button": {
+          "title": "Buy Credits",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "org_pack",
+        "product_name": "AIVIVE Organization Pack",
+        "credits": 5000,
+        "valid_months": 12
+      }
+    ]
+  }
+}

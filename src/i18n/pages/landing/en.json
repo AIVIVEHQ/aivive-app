@@ -1,0 +1,482 @@
+{
+  "template": "aivive-template-one",
+  "theme": "light",
+  "header": {
+    "brand": {
+      "title": "AIVIVE",
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "Generate",
+          "url": "/generate",
+          "icon": "RiMagicLine"
+        },
+        {
+          "title": "Twitter Publisher",
+          "url": "/twitter-publisher",
+          "icon": "RiTwitterXLine"
+        },
+        {
+          "title": "Gallery",
+          "url": "/gallery",
+          "icon": "RiGalleryLine"
+        },
+        {
+          "title": "Pricing",
+          "url": "/pricing",
+          "icon": "RiMoneyDollarCircleLine"
+        }
+      ]
+    },
+    "buttons": [],
+    "show_sign": true,
+    "show_theme": false,
+    "show_locale": true
+  },
+  "hero": {
+    "title": "Create Stunning Visuals with AI",
+    "highlight_text": "Stunning Visuals",
+    "description": "Turn your imagination into reality with AIVIVE. Generate professional images and videos in seconds.",
+    "announcement": {
+      "label": "2025",
+      "title": "✨ New: Image-to-Image Generation",
+      "url": "/pricing"
+    },
+    "tip": "",
+    "buttons": [
+      {
+        "title": "Start Creating",
+        "icon": "RiFlashlightFill",
+        "url": "/pricing",
+        "target": "_self",
+        "variant": "default"
+      },
+      {
+        "title": "View Gallery",
+        "icon": "RiGalleryLine",
+        "url": "/gallery",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ],
+    "show_happy_users": true,
+    "show_badge": false
+  },
+  "branding": {
+    "title": "Powered by Cutting-Edge AI Models",
+    "items": [
+      {
+        "title": "Next.js",
+        "image": {
+          "src": "/imgs/logos/nextjs.svg",
+          "alt": "Next.js"
+        }
+      },
+      {
+        "title": "React",
+        "image": {
+          "src": "/imgs/logos/react.svg",
+          "alt": "React"
+        }
+      },
+      {
+        "title": "TailwindCSS",
+        "image": {
+          "src": "/imgs/logos/tailwindcss.svg",
+          "alt": "TailwindCSS"
+        }
+      },
+      {
+        "title": "Shadcn/UI",
+        "image": {
+          "src": "/imgs/logos/shadcn.svg",
+          "alt": "Shadcn/UI"
+        }
+      },
+      {
+        "title": "Vercel",
+        "image": {
+          "src": "/imgs/logos/vercel.svg",
+          "alt": "Vercel"
+        }
+      }
+    ]
+  },
+  "introduce": {
+    "name": "introduce",
+    "title": "What is AIVIVE",
+    "label": "Introduce",
+    "description": "AIVIVE is your personal AI artist. Create stunning visuals for your creative projects, marketing campaigns, and more.",
+    "image": {
+      "src": "/imgs/features/1.png"
+    },
+    "items": [
+      {
+        "title": "Versatile Styles",
+        "description": "Choose from hundreds of artistic prompts and styles for any creative need.",
+        "icon": "RiMagicLine"
+      },
+      {
+        "title": "High Quality",
+        "description": "Generate professional-grade images suitable for printing and digital sharing.",
+        "icon": "RiHdLine"
+      },
+      {
+        "title": "Fast Generation",
+        "description": "Get your visuals in seconds, not hours.",
+        "icon": "RiSpeedLine"
+      }
+    ]
+  },
+  "benefit": {
+    "name": "benefit",
+    "title": "Why Choose AIVIVE",
+    "label": "Benefits",
+    "description": "The perfect tool to bring your creative vision to life.",
+    "items": [
+      {
+        "title": "Unlimited Creativity",
+        "description": "From portraits to landscapes, visualize anything you can imagine.",
+        "icon": "RiLightbulbFlashLine",
+        "image": {
+          "src": "/imgs/features/2.png"
+        }
+      },
+      {
+        "title": "Commercial License",
+        "description": "Use your generated images for marketing, merchandise, and more.",
+        "icon": "RiCopyrightLine",
+        "image": {
+          "src": "/imgs/features/3.png"
+        }
+      },
+      {
+        "title": "Easy to Use",
+        "description": "No design skills needed. Just describe what you want and let AI do the rest.",
+        "icon": "RiUserSmileLine",
+        "image": {
+          "src": "/imgs/features/4.png"
+        }
+      }
+    ]
+  },
+  "usage": {
+    "name": "usage",
+    "title": "How to Create with AIVIVE",
+    "description": "Create your masterpiece in simple steps:",
+    "image": {
+      "src": "/imgs/features/1.png"
+    },
+    "image_position": "left",
+    "text_align": "center",
+    "items": [
+      {
+        "title": "Enter Prompt",
+        "description": "Describe your creative vision, e.g., 'A serene mountain landscape at sunset'.",
+        "image": {
+          "src": "/imgs/features/5.png"
+        }
+      },
+      {
+        "title": "Choose Style",
+        "description": "Select from styles like 'Watercolor', '3D Render', 'Oil Painting', etc.",
+        "image": {
+          "src": "/imgs/features/6.png"
+        }
+      },
+      {
+        "title": "Generate",
+        "description": "Click generate and watch your idea come to life instantly.",
+        "image": {
+          "src": "/imgs/features/7.png"
+        }
+      },
+      {
+        "title": "Download",
+        "description": "Save your high-resolution image and share the holiday joy.",
+        "image": {
+          "src": "/imgs/features/8.png"
+        }
+      }
+    ]
+  },
+  "feature": {
+    "name": "feature",
+    "title": "Key Features",
+    "description": "Everything you need for your holiday creative projects.",
+    "items": [
+      {
+        "title": "Text to Image",
+        "description": "Turn text descriptions into beautiful images.",
+        "icon": "RiText"
+      },
+      {
+        "title": "Image to Image",
+        "description": "Transform existing photos into new styles.",
+        "icon": "RiImage2Line"
+      },
+      {
+        "title": "Inpainting",
+        "description": "Edit specific parts of an image with AI.",
+        "icon": "RiEditBoxLine"
+      },
+      {
+        "title": "Upscaling",
+        "description": "Enhance image resolution up to 4x.",
+        "icon": "RiZoomInLine"
+      },
+      {
+        "title": "Style Transfer",
+        "description": "Apply artistic styles to your photos.",
+        "icon": "RiPaletteLine"
+      },
+      {
+        "title": "Background Removal",
+        "description": "Remove backgrounds instantly for product shots.",
+        "icon": "RiEraserLine"
+      }
+    ]
+  },
+  "stats": {
+    "name": "stats",
+    "label": "Stats",
+    "title": "Trusted by Creators",
+    "description": "Join thousands of creators making magic with AI.",
+    "icon": "FaRegHeart",
+    "items": [
+      {
+        "title": "Images Generated",
+        "label": "1M+",
+        "description": "This Season"
+      },
+      {
+        "title": "Happy Users",
+        "label": "50k+",
+        "description": "Worldwide"
+      },
+      {
+        "title": "Styles Available",
+        "label": "100+",
+        "description": "Artistic Styles"
+      }
+    ]
+  },
+  "testimonial": {
+    "name": "testimonial",
+    "label": "Testimonial",
+    "title": "What Users Say",
+    "description": "See how AIVIVE is helping creators bring their visions to life.",
+    "icon": "GoThumbsup",
+    "items": [
+      {
+        "title": "Sarah Johnson",
+        "label": "Graphic Designer",
+        "description": "AIVIVE has transformed my creative workflow. The image quality is incredible!",
+        "image": {
+          "src": "/imgs/users/1.png"
+        }
+      },
+      {
+        "title": "Mike Chen",
+        "label": "Small Business Owner",
+        "description": "Generated amazing marketing assets for my shop in minutes. Saved me so much time and money.",
+        "image": {
+          "src": "/imgs/users/2.png"
+        }
+      },
+      {
+        "title": "Emily Davis",
+        "label": "Content Creator",
+        "description": "The quality is incredible. I use it for all my social media content creation.",
+        "image": {
+          "src": "/imgs/users/3.png"
+        }
+      },
+      {
+        "title": "Tom Wilson",
+        "label": "Artist",
+        "description": "Great for brainstorming ideas and creating references for my paintings.",
+        "image": {
+          "src": "/imgs/users/4.png"
+        }
+      },
+      {
+        "title": "Jessica Brown",
+        "label": "Teacher",
+        "description": "My students loved the custom educational illustrations I made for the classroom.",
+        "image": {
+          "src": "/imgs/users/5.png"
+        }
+      },
+      {
+        "title": "David Miller",
+        "label": "Developer",
+        "description": "The API is super easy to use. Integrated it into my app in no time.",
+        "image": {
+          "src": "/imgs/users/6.png"
+        }
+      }
+    ]
+  },
+  "faq": {
+    "name": "faq",
+    "label": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Got questions? We've got answers.",
+    "items": [
+      {
+        "title": "What is AIVIVE?",
+        "description": "AIVIVE is an advanced AI image generation platform that allows you to create high-quality images from text descriptions and reference images."
+      },
+      {
+        "title": "Is it free to use?",
+        "description": "We offer a free trial with limited credits. For more features and higher limits, you can upgrade to a paid plan."
+      },
+      {
+        "title": "Can I use the images commercially?",
+        "description": "Yes, all images generated on paid plans come with a full commercial license."
+      },
+      {
+        "title": "How does the credit system work?",
+        "description": "Each generation costs a certain number of credits depending on the settings and quality. Credits are renewed monthly."
+      },
+      {
+        "title": "Do you offer refunds?",
+        "description": "Yes, we offer a 7-day money-back guarantee if you're not satisfied with our service."
+      },
+      {
+        "title": "Can I cancel my subscription?",
+        "description": "You can cancel your subscription at any time from your account settings."
+      }
+    ]
+  },
+  "cta": {
+    "name": "cta",
+    "title": "Ready to Create Magic?",
+    "description": "Start generating amazing Christmas images today.",
+    "buttons": [
+      {
+        "title": "Get Started Free",
+        "url": "/login",
+        "target": "_self",
+        "icon": "GoArrowUpRight"
+      },
+      {
+        "title": "View Pricing",
+        "url": "/pricing",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ]
+  },
+  "footer": {
+    "name": "footer",
+    "brand": {
+      "title": "AIVIVE",
+      "description": "Empowering creativity with AI. Create stunning images in seconds.",
+      "url": "/"
+    },
+    "copyright": "© 2025 • AIVIVE All rights reserved.",
+    "nav": {
+      "items": [
+        {
+          "title": "Product",
+          "children": [
+            {
+              "title": "Features",
+              "url": "/#feature",
+              "target": "_self"
+            },
+            {
+              "title": "Gallery",
+              "url": "/gallery",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "Resources",
+          "children": [
+            {
+              "title": "Docs",
+              "url": "/docs",
+              "target": "_self"
+            },
+            {
+              "title": "Blog",
+              "url": "/blog",
+              "target": "_self"
+            },
+            {
+              "title": "Community",
+              "url": "/community",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "Legal",
+          "children": [
+            {
+              "title": "Privacy Policy",
+              "url": "/privacy-policy",
+              "target": "_self"
+            },
+            {
+              "title": "Terms of Service",
+              "url": "/terms-of-service",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    },
+    "social": {
+      "items": [
+        {
+          "title": "X",
+          "icon": "RiTwitterXFill",
+          "url": "https://x.com/aivive",
+          "target": "_blank"
+        },
+        {
+          "title": "Github",
+          "icon": "RiGithubFill",
+          "url": "https://github.com/aivive",
+          "target": "_blank"
+        },
+        {
+          "title": "Discord",
+          "icon": "RiDiscordFill",
+          "url": "https://discord.gg/aivive",
+          "target": "_blank"
+        },
+        {
+          "title": "Email",
+          "icon": "RiMailLine",
+          "url": "mailto:support@aivive.ai",
+          "target": "_self"
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "title": "Terms of Service",
+          "url": "/terms-of-service"
+        }
+      ]
+    }
+  }
+}
