@@ -46,3 +46,4 @@ supabase
 .env
 
 plans
+.env*
