@@ -13,7 +13,7 @@ import {
   sanitizePrompt,
 } from "@/lib/kling-config";
 import type { AspectRatio, Generation } from "@/types/generation";
-import { generateImage as generateImageWithGemini } from "@/services/geminiService";
+import { generateImage } from "@/services/volcengineService";
 
 
 /**
@@ -52,12 +52,14 @@ export async function processGeneration({
   aspectRatio,
   stylePreset,
   negativePrompt,
+  referenceImage,
 }: {
   userUuid: string;
   prompt: string;
   aspectRatio: AspectRatio;
   stylePreset?: string;
   negativePrompt?: string;
+  referenceImage?: string;
 }): Promise<{ generationUuid: string; error?: string }> {
   const generationUuid = uuidv4();
   const config = ASPECT_RATIO_CONFIGS[aspectRatio];
@@ -80,17 +82,18 @@ export async function processGeneration({
       style_preset: stylePreset,
       credits_used: 0,
       status: "pending",
-      kling_model_id: "gemini-2.5-flash-image",
+      kling_model_id: process.env.IMAGE_MODEL || "doubao-seedream-5-0-260128",
     });
 
     // Update status to processing
     await updateGeneration(generationUuid, { status: "processing" });
 
-    // Call Gemini API directly
+    // Call Volcengine Ark (Seedream) for image generation (text-to-image or image-to-image)
     const startTime = Date.now();
-    const result = await generateImageWithGeminiAPI({
+    const result = await generateImageViaVolcengine({
       prompt: fullPrompt,
       aspectRatio,
+      referenceImage,
     });
 
     if (!result.success || !result.image) {
@@ -135,14 +138,17 @@ export async function processGeneration({
 }
 
 /**
- * Call Gemini API directly to generate image
+ * Call Volcengine Ark (Seedream) to generate image
+ * Supports both text-to-image and image-to-image (when referenceImage is provided)
  */
-async function generateImageWithGeminiAPI({
+async function generateImageViaVolcengine({
   prompt,
   aspectRatio,
+  referenceImage,
 }: {
   prompt: string;
   aspectRatio: AspectRatio;
+  referenceImage?: string;
 }): Promise<{
   success: boolean;
   image?: Uint8Array;
@@ -150,11 +156,18 @@ async function generateImageWithGeminiAPI({
   error?: string;
 }> {
   try {
-    console.log("Generating image with Gemini 2.5 Flash...", { prompt, aspectRatio });
+    console.log("Generating image with Volcengine Seedream...", {
+      prompt,
+      aspectRatio,
+      mode: referenceImage ? "image-to-image" : "text-to-image",
+    });
 
-    // Call Gemini API directly (not through AI SDK)
-    const base64Image = await generateImageWithGemini(prompt, aspectRatio);
-    console.log("📥 Received base64 image from Gemini");
+    const base64Image = await generateImage({
+      prompt,
+      aspectRatio,
+      referenceImage,
+    });
+    console.log("📥 Received image from Volcengine");
 
     if (!base64Image) {
       throw new Error("No image generated");

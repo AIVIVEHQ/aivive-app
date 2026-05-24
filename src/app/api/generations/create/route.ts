@@ -57,11 +57,13 @@ export async function POST(req: NextRequest) {
       aspectRatio,
       stylePreset,
       negativePrompt,
+      referenceImage,
     }: {
       prompt?: string;
       aspectRatio?: AspectRatio;
       stylePreset?: string;
       negativePrompt?: string;
+      referenceImage?: string;
     } = body;
 
     // Validate required fields
@@ -150,6 +152,7 @@ export async function POST(req: NextRequest) {
       aspectRatio,
       stylePreset,
       negativePrompt,
+      referenceImage,
     });
 
     if (error) {

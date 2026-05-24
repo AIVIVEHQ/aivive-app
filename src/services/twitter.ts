@@ -1,15 +1,12 @@
 import "server-only";
 
-import { GoogleGenAI } from "@google/genai";
-
 import { findTwitterAccountByUserUuid, updateTwitterAccount } from "@/models/twitter";
 import { getTwitterBasicAuthHeader, getTwitterRedirectUri } from "@/lib/twitter-oauth";
 import { newStorage } from "@/lib/storage";
-import { generateImage as generateImageWithGemini } from "@/services/geminiService";
-
-const geminiClient = process.env.GEMINI_API_KEY
-  ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
-  : null;
+import {
+  generateImage,
+  generateTweetText as generateTweetTextWithVolcengine,
+} from "@/services/volcengineService";
 
 const TWEET_LIMIT = 280;
 
@@ -20,39 +17,15 @@ export function assertTweetLength(tweetText: string) {
 }
 
 export async function generateTweetText(inputText: string) {
-  const model = process.env.TWITTER_TEXT_MODEL || "gemini-flash-latest";
-  const fallback = compactFallbackTweet(inputText);
-
-  if (!geminiClient) {
-    return fallback;
+  if (!process.env.ARK_API_KEY) {
+    return compactFallbackTweet(inputText);
   }
-
-  const prompt = [
-    "You write concise single-post Twitter/X copy. Return only the final tweet text. No markdown, no alternatives, no explanation.",
-    "",
-    "Turn the user's input into one polished Twitter/X post.",
-    "Requirements:",
-    "- one single tweet, not a thread",
-    "- 280 characters or fewer",
-    "- keep the original language unless a better mixed-language result is obvious",
-    "- clear, specific, and suitable for social media",
-    "",
-    `Input:\n${inputText}`,
-  ].join("\n");
-
-  const response = await geminiClient.models.generateContent({
-    model,
-    contents: { parts: [{ text: prompt }] },
-  });
-
-  const rawText = (response.candidates?.[0]?.content?.parts || [])
-    .map((p) => p.text || "")
-    .join("")
-    .trim();
-
-  const cleaned = rawText.replace(/^["“]|["”]$/g, "").trim();
-  if (!cleaned) return fallback;
-  return cleaned.length <= TWEET_LIMIT ? cleaned : compactFallbackTweet(cleaned);
+  try {
+    return await generateTweetTextWithVolcengine(inputText);
+  } catch (err) {
+    console.error("Volcengine tweet text generation failed, falling back:", err);
+    return compactFallbackTweet(inputText);
+  }
 }
 
 export function buildImagePrompt(tweetText: string) {
@@ -73,11 +46,11 @@ export async function generateTweetImage({
 }) {
   const prompt = buildImagePrompt(tweetText);
 
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is required to generate tweet images.");
+  if (!process.env.ARK_API_KEY) {
+    throw new Error("ARK_API_KEY is required to generate tweet images.");
   }
 
-  const dataUrl = await generateImageWithGemini(prompt, "16:9");
+  const dataUrl = await generateImage({ prompt, aspectRatio: "16:9" });
   if (!dataUrl) {
     throw new Error("AI image generation failed.");
   }

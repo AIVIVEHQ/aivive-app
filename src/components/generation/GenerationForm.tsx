@@ -56,6 +56,8 @@ export default function GenerationForm({
         body: JSON.stringify({
           prompt: prompt.trim(),
           aspectRatio,
+          referenceImage:
+            mode === "image-to-image" ? referenceImage || undefined : undefined,
         }),
       });
 
