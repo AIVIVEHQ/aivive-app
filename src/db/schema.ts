@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   pgTable,
   serial,
@@ -9,6 +10,7 @@ import {
   unique,
   uniqueIndex,
   index,
+  jsonb,
 } from "drizzle-orm/pg-core";
 
 // Users table
@@ -258,6 +260,25 @@ export const verificationCodes = pgTable(
       table.purpose
     ),
     index("idx_verification_codes_ip_created").on(table.ip, table.created_at),
+  ]
+);
+
+// Chat conversations (login-gated chat history; messages stored as UIMessage[] jsonb blob)
+export const chatConversations = pgTable(
+  "chat_conversations",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    uuid: varchar({ length: 255 }).notNull().unique(),
+    user_uuid: varchar({ length: 255 }).notNull(),
+    title: varchar({ length: 255 }).notNull().default(""),
+    model_id: varchar({ length: 100 }),
+    messages: jsonb().notNull().default(sql`'[]'::jsonb`),
+    created_at: timestamp({ withTimezone: true }).defaultNow(),
+    updated_at: timestamp({ withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_chat_conversations_user_uuid").on(table.user_uuid),
+    index("idx_chat_conversations_updated_at").on(table.updated_at),
   ]
 );
 
