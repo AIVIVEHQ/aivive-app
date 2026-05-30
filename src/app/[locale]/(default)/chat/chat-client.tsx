@@ -46,6 +46,13 @@ import {
   ReasoningContent,
   ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from "@/components/ai-elements/tool";
 import { Loader } from "@/components/ai-elements/loader";
 
 const AVATAR_ENABLED = process.env.NEXT_PUBLIC_AVATAR_ENABLED !== "false";
@@ -387,6 +394,40 @@ export default function ChatClient() {
                               <ReasoningTrigger />
                               <ReasoningContent>{part.text}</ReasoningContent>
                             </Reasoning>
+                          );
+                        }
+                        if (
+                          typeof part.type === "string" &&
+                          part.type.startsWith("tool-")
+                        ) {
+                          const toolPart = part as {
+                            type: `tool-${string}`;
+                            state:
+                              | "input-streaming"
+                              | "input-available"
+                              | "approval-requested"
+                              | "approval-responded"
+                              | "output-available"
+                              | "output-error"
+                              | "output-denied";
+                            input?: unknown;
+                            output?: unknown;
+                            errorText?: string;
+                          };
+                          return (
+                            <Tool key={i} defaultOpen={false}>
+                              <ToolHeader
+                                type={toolPart.type}
+                                state={toolPart.state}
+                              />
+                              <ToolContent>
+                                <ToolInput input={toolPart.input} />
+                                <ToolOutput
+                                  output={toolPart.output}
+                                  errorText={toolPart.errorText}
+                                />
+                              </ToolContent>
+                            </Tool>
                           );
                         }
                         return null;

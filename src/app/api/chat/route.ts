@@ -1,5 +1,6 @@
 import {
   convertToModelMessages,
+  stepCountIs,
   streamText,
   type UIMessage,
 } from "ai";
@@ -7,6 +8,8 @@ import {
 import { auth } from "@/auth";
 import { ark } from "@/aisdk/provider/ark";
 import { resolveServerDefaultModel } from "@/aisdk/models/chat-models";
+import { getCryptoPrice } from "@/aisdk/tools/crypto";
+import { getWeather } from "@/aisdk/tools/weather";
 import { upsertUserChatConversation } from "@/models/chat";
 
 export const maxDuration = 60;
@@ -15,6 +18,8 @@ const SYSTEM_PROMPT = [
   "You are a helpful, concise assistant.",
   "Reply in the same language the user writes in.",
   "Use Markdown when it improves clarity (code blocks for code, lists for enumerations).",
+  "When the user asks about weather, temperature, or conditions for a place, call the getWeather tool with the location name before answering.",
+  "When the user asks about cryptocurrency price, market cap, or 24-hour change, call the getCryptoPrice tool before answering.",
 ].join(" ");
 
 export async function POST(req: Request) {
@@ -60,7 +65,9 @@ export async function POST(req: Request) {
     const result = streamText({
       model: ark(modelId),
       system: SYSTEM_PROMPT,
-      messages: convertToModelMessages(messages),
+      messages: await convertToModelMessages(messages),
+      tools: { getWeather, getCryptoPrice },
+      stopWhen: stepCountIs(3),
     });
 
     return result.toUIMessageStreamResponse({

@@ -14,6 +14,8 @@ const nextConfig = {
   reactStrictMode: false,
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   images: {
+    qualities: [50, 75, 100],
+    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: "https",
