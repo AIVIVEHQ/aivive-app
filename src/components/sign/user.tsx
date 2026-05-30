@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { UserIcon } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -16,6 +17,21 @@ import { User } from "@/types/user";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { NavItem } from "@/types/blocks/base";
+
+function getInitials(name?: string | null): string | null {
+  if (!name) return null;
+  const trimmed = name.trim();
+  if (!trimmed) return null;
+  const compact = trimmed.replace(/\s/g, "");
+  const letterCount = (compact.match(/[\p{L}]/gu) || []).length;
+  if (letterCount < 2 || letterCount / compact.length < 0.5) return null;
+  const letters = trimmed
+    .split(/[\s_\-.@]+/)
+    .map((part) => part.match(/[\p{L}]/u)?.[0])
+    .filter(Boolean) as string[];
+  if (letters.length === 0) return null;
+  return (letters[0] + (letters[1] ?? "")).toUpperCase().slice(0, 2);
+}
 
 export default function SignUser({ user }: { user: User }) {
   const t = useTranslations();
@@ -42,13 +58,31 @@ export default function SignUser({ user }: { user: User }) {
     },
   ];
 
+  const initials = getInitials(user.nickname);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer">
-          <AvatarImage src={user.avatar_url} alt={user.nickname} />
-          <AvatarFallback>{user.nickname}</AvatarFallback>
-        </Avatar>
+        <button
+          type="button"
+          aria-label={user.nickname || "Account"}
+          className="rounded-full outline-none ring-offset-background transition focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
+        >
+          <Avatar className="size-9 cursor-pointer border border-border/60 bg-muted/40 transition-colors hover:border-primary/40">
+            <AvatarImage
+              src={user.avatar_url}
+              alt={user.nickname || "Account"}
+            />
+            <AvatarFallback className="bg-muted/60 text-[11px] font-medium tracking-wide text-foreground/80">
+              {initials ?? (
+                <UserIcon
+                  aria-hidden
+                  className="size-4 text-muted-foreground"
+                />
+              )}
+            </AvatarFallback>
+          </Avatar>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-background">
         {dropdownItems.map((item, index) => (

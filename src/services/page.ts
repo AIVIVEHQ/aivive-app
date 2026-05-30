@@ -1,34 +1,34 @@
-import { LandingPage, PricingPage, ShowcasePage } from "@/types/pages/landing";
+import type { LandingPage, PricingPage, ShowcasePage } from "@/types/pages/landing";
+
+import landingEn from "@/i18n/pages/landing/en.json";
+import landingZh from "@/i18n/pages/landing/zh.json";
+import pricingEn from "@/i18n/pages/pricing/en.json";
+import pricingZh from "@/i18n/pages/pricing/zh.json";
+import showcaseEn from "@/i18n/pages/showcase/en.json";
+import showcaseZh from "@/i18n/pages/showcase/zh.json";
+
+type PageName = "landing" | "pricing" | "showcase";
+type PageData = LandingPage | PricingPage | ShowcasePage;
+
+const PAGES: Record<PageName, Record<string, PageData>> = {
+  landing: { en: landingEn as LandingPage, zh: landingZh as LandingPage },
+  pricing: { en: pricingEn as PricingPage, zh: pricingZh as PricingPage },
+  showcase: { en: showcaseEn as ShowcasePage, zh: showcaseZh as ShowcasePage },
+};
 
 export async function getLandingPage(locale: string): Promise<LandingPage> {
-  return (await getPage("landing", locale)) as LandingPage;
+  return getPage("landing", locale) as LandingPage;
 }
 
 export async function getPricingPage(locale: string): Promise<PricingPage> {
-  return (await getPage("pricing", locale)) as PricingPage;
+  return getPage("pricing", locale) as PricingPage;
 }
 
 export async function getShowcasePage(locale: string): Promise<ShowcasePage> {
-  return (await getPage("showcase", locale)) as ShowcasePage;
+  return getPage("showcase", locale) as ShowcasePage;
 }
 
-export async function getPage(
-  name: string,
-  locale: string
-): Promise<LandingPage | PricingPage | ShowcasePage> {
-  try {
-    if (locale === "zh-CN") {
-      locale = "zh";
-    }
-
-    return await import(
-      `@/i18n/pages/${name}/${locale.toLowerCase()}.json`
-    ).then((module) => module.default);
-  } catch (error) {
-    console.warn(`Failed to load ${locale}.json, falling back to en.json`);
-
-    return await import(`@/i18n/pages/${name}/en.json`).then(
-      (module) => module.default
-    );
-  }
+export function getPage(name: PageName, locale: string): PageData {
+  const key = locale === "zh-CN" ? "zh" : locale.toLowerCase();
+  return PAGES[name][key] ?? PAGES[name].en;
 }

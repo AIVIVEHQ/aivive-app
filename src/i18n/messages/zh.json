@@ -345,5 +345,33 @@
         "resources": ["文档", "社区", "帮助中心"]
       }
     }
+  },
+  "chat": {
+    "nav": "对话",
+    "pageTitle": "AI 对话",
+    "pageDescription": "与豆包驱动的 AI 助手对话。",
+    "newChat": "新对话",
+    "conversations": "会话列表",
+    "noConversations": "暂无会话，新建一个吧。",
+    "emptyTitle": "开始一段对话",
+    "emptyDescription": "随便问，回复实时流式返回。",
+    "inputPlaceholder": "输入消息…",
+    "send": "发送",
+    "stop": "停止",
+    "regenerate": "重新生成",
+    "copy": "复制",
+    "copied": "已复制",
+    "copyFailed": "复制失败",
+    "rename": "重命名",
+    "delete": "删除",
+    "signInPrompt": "登录后即可开始聊天，并保存历史记录。",
+    "openSidebar": "打开侧边栏",
+    "thinking": "思考中…",
+    "errorMessage": "出错了，请重试。",
+    "submitHint": "回车发送，Shift+回车换行",
+    "suggestionExplain": "讲解一个概念",
+    "suggestionWrite": "帮我写点东西",
+    "suggestionDebug": "帮我看看这段代码",
+    "suggestionBrainstorm": "一起头脑风暴"
   }
 }

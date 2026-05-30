@@ -17,6 +17,11 @@
           "icon": "RiMagicLine"
         },
         {
+          "title": "对话",
+          "url": "/chat",
+          "icon": "RiChat3Line"
+        },
+        {
           "title": "推文发布",
           "url": "/twitter-publisher",
           "icon": "RiTwitterXLine"

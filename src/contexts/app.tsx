@@ -23,11 +23,9 @@ const AppContext = createContext({} as ContextValue);
 export const useAppContext = () => useContext(AppContext);
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
-  if (isAuthEnabled() && isGoogleOneTapEnabled()) {
-    useOneTapLogin();
-  }
+  useOneTapLogin(isAuthEnabled() && isGoogleOneTapEnabled());
 
-  const { data: session } = isAuthEnabled() ? useSession() : { data: null };
+  const { data: session } = useSession();
 
   const [showSignModal, setShowSignModal] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);

@@ -17,6 +17,11 @@
           "icon": "RiMagicLine"
         },
         {
+          "title": "Chat",
+          "url": "/chat",
+          "icon": "RiChat3Line"
+        },
+        {
           "title": "Twitter Publisher",
           "url": "/twitter-publisher",
           "icon": "RiTwitterXLine"

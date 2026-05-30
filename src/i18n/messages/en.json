@@ -345,5 +345,33 @@
         "resources": ["Documentation", "Community", "Help Center"]
       }
     }
+  },
+  "chat": {
+    "nav": "Chat",
+    "pageTitle": "AI Chat",
+    "pageDescription": "Chat with an AI assistant powered by Doubao models.",
+    "newChat": "New chat",
+    "conversations": "Conversations",
+    "noConversations": "No conversations yet. Start a new chat.",
+    "emptyTitle": "Start a conversation",
+    "emptyDescription": "Ask anything. Replies stream in real time.",
+    "inputPlaceholder": "Send a message…",
+    "send": "Send",
+    "stop": "Stop",
+    "regenerate": "Regenerate",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Copy failed",
+    "rename": "Rename",
+    "delete": "Delete",
+    "signInPrompt": "Sign in to start chatting and save your conversation history.",
+    "openSidebar": "Open sidebar",
+    "thinking": "Thinking…",
+    "errorMessage": "Something went wrong. Please try again.",
+    "submitHint": "Enter to send, Shift+Enter for new line",
+    "suggestionExplain": "Explain a concept",
+    "suggestionWrite": "Help me write",
+    "suggestionDebug": "Debug this code",
+    "suggestionBrainstorm": "Brainstorm ideas"
   }
 }
