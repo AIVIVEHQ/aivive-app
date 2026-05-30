@@ -10,8 +10,11 @@ import { cn } from "@/lib/utils";
 import { BrainIcon, ChevronDownIcon } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { createContext, memo, useContext, useEffect, useState } from "react";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 import { Streamdown } from "streamdown";
 import { Shimmer } from "./shimmer";
+
+const baseRehypePlugins = [rehypeUnwrapImages];
 
 type ReasoningContextValue = {
   isStreaming: boolean;
@@ -170,7 +173,13 @@ export const ReasoningContent = memo(
       )}
       {...props}
     >
-      <Streamdown {...(props as ComponentProps<typeof Streamdown>)}>
+      <Streamdown
+        {...(props as ComponentProps<typeof Streamdown>)}
+        rehypePlugins={[
+          ...baseRehypePlugins,
+          ...((props as ComponentProps<typeof Streamdown>).rehypePlugins ?? []),
+        ]}
+      >
         {children}
       </Streamdown>
     </CollapsibleContent>

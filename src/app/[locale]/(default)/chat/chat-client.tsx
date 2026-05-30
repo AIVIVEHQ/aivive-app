@@ -2,11 +2,13 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   ArrowUpIcon,
+  CheckIcon,
   CopyIcon,
   MenuIcon,
   PencilIcon,
@@ -46,6 +48,13 @@ import {
 } from "@/components/ai-elements/reasoning";
 import { Loader } from "@/components/ai-elements/loader";
 
+const AVATAR_ENABLED = process.env.NEXT_PUBLIC_AVATAR_ENABLED !== "false";
+
+const AvatarPanel = dynamic(() => import("./avatar-panel"), {
+  ssr: false,
+  loading: () => null,
+});
+
 type ConversationSummary = {
   uuid: string;
   title: string;
@@ -81,12 +90,19 @@ export default function ChatClient() {
   conversationIdRef.current = activeId ?? draftId;
 
   const [initialMessages, setInitialMessages] = useState<UIMessage[]>([]);
-  const [chatKey, setChatKey] = useState(0);
   const [editingTitleId, setEditingTitleId] = useState<string | null>(null);
   const [titleDraft, setTitleDraft] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [composerText, setComposerText] = useState("");
   const [isComposing, setIsComposing] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const copiedResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copiedResetRef.current) clearTimeout(copiedResetRef.current);
+    };
+  }, []);
 
   const refreshConversations = useCallback(async () => {
     try {
@@ -119,29 +135,32 @@ export default function ChatClient() {
     stop,
     regenerate,
     error,
-    setMessages,
   } = useChat({
-    id: activeId ?? `draft-${chatKey}`,
+    // Resolved id stays stable across the first onFinish: at that moment
+    // `activeId` is set to the same uuid that `draftId` already held, so the
+    // resolved value doesn't change and useChat keeps its accumulated messages.
+    id: activeId ?? draftId,
     messages: initialMessages,
     transport,
     onError: (err) => {
       console.error("chat error:", err);
       toast.error(t("errorMessage"));
     },
-    onFinish: () => {
-      // Adopt the outgoing id as active so future sends keep updating the same
-      // row, then refresh the sidebar to pick up the server-derived title.
+    onFinish: ({ isAbort }) => {
+      // Aborted streams (e.g. user switched chats mid-stream) must not mutate
+      // state: the new chat's draftId is already in `conversationIdRef.current`
+      // and adopting it as activeId would corrupt the fresh draft.
+      if (isAbort) return;
       if (!activeId) setActiveId(conversationIdRef.current);
       void refreshConversations();
     },
   });
 
   function startNewChat() {
+    if (status === "submitted" || status === "streaming") stop();
     setActiveId(null);
     setDraftId(newId());
     setInitialMessages([]);
-    setMessages([]);
-    setChatKey((k) => k + 1);
     setSidebarOpen(false);
   }
 
@@ -156,10 +175,9 @@ export default function ChatClient() {
         conversation: { uuid: string; messages: UIMessage[] };
       };
       const loaded = data.conversation.messages ?? [];
+      if (status === "submitted" || status === "streaming") stop();
       setActiveId(data.conversation.uuid);
       setInitialMessages(loaded);
-      setMessages(loaded);
-      setChatKey((k) => k + 1);
       setSidebarOpen(false);
     } catch (err) {
       console.error("open conversation failed:", err);
@@ -208,14 +226,23 @@ export default function ChatClient() {
     }
   }
 
-  function handleCopy(text: string) {
+  function handleCopy(messageId: string, text: string) {
     if (!text) return;
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(
-        () => toast.success(t("copied")),
-        () => toast.error(t("copyFailed"))
-      );
+    if (!navigator.clipboard?.writeText) {
+      toast.error(t("copyFailed"));
+      return;
     }
+    navigator.clipboard.writeText(text).then(
+      () => {
+        setCopiedId(messageId);
+        if (copiedResetRef.current) clearTimeout(copiedResetRef.current);
+        copiedResetRef.current = setTimeout(() => {
+          setCopiedId((current) => (current === messageId ? null : current));
+          copiedResetRef.current = null;
+        }, 1800);
+      },
+      () => toast.error(t("copyFailed"))
+    );
   }
 
   function handleSend(payload: { text?: string }) {
@@ -336,7 +363,7 @@ export default function ChatClient() {
               messages.map((message, idx) => {
                 const isLast = idx === messages.length - 1;
                 return (
-                  <Message key={message.id} from={message.role}>
+                  <Message key={message.id || `msg-${idx}`} from={message.role}>
                     <MessageContent>
                       {(message.parts ?? []).map((part, i) => {
                         if (part.type === "text") {
@@ -365,15 +392,50 @@ export default function ChatClient() {
                         return null;
                       })}
                       {message.role === "assistant" && (
-                        <div className="mt-2 flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                        <div
+                          className={cn(
+                            "mt-2 flex items-center gap-1 transition-opacity",
+                            copiedId === message.id
+                              ? "opacity-100"
+                              : "opacity-0 group-hover:opacity-100 focus-within:opacity-100"
+                          )}
+                        >
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-7 gap-1 px-2 text-xs"
-                            onClick={() => handleCopy(extractText(message))}
+                            aria-live="polite"
+                            className={cn(
+                              "h-7 gap-1.5 px-2 text-xs transition-colors",
+                              copiedId === message.id &&
+                                "text-emerald-500 hover:text-emerald-500"
+                            )}
+                            onClick={() =>
+                              handleCopy(message.id, extractText(message))
+                            }
                           >
-                            <CopyIcon className="size-3" />
-                            {t("copy")}
+                            <span className="relative inline-flex size-3 items-center justify-center">
+                              <CopyIcon
+                                className={cn(
+                                  "absolute size-3 transition-all duration-200",
+                                  copiedId === message.id
+                                    ? "scale-75 opacity-0"
+                                    : "scale-100 opacity-100"
+                                )}
+                              />
+                              <CheckIcon
+                                className={cn(
+                                  "absolute size-3 transition-all duration-200",
+                                  copiedId === message.id
+                                    ? "scale-100 opacity-100"
+                                    : "scale-75 opacity-0"
+                                )}
+                              />
+                            </span>
+                            <span className="min-w-[3.5em] text-left">
+                              {copiedId === message.id
+                                ? t("copied")
+                                : t("copy")}
+                            </span>
                           </Button>
                           {isLast && canRegenerate && (
                             <Button
@@ -454,7 +516,7 @@ export default function ChatClient() {
                   placeholder={t("inputPlaceholder")}
                   disabled={status === "error"}
                   rows={1}
-                  className="field-sizing-content max-h-40 min-h-[44px] w-full resize-none bg-transparent px-4 py-3 text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground/60 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="field-sizing-content max-h-40 min-h-[44px] w-full resize-none bg-transparent px-4 py-3 text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground/60 disabled:cursor-not-allowed disabled:opacity-50 rounded-2xl"
                 />
                 {isLoading ? (
                   <button
@@ -483,6 +545,15 @@ export default function ChatClient() {
           </div>
         </div>
       </div>
+
+      {AVATAR_ENABLED && (
+        <aside
+          aria-label="AI avatar"
+          className="hidden w-72 shrink-0 overflow-hidden rounded-xl border bg-card shadow-sm lg:block xl:w-80"
+        >
+          <AvatarPanel />
+        </aside>
+      )}
     </div>
   );
 }

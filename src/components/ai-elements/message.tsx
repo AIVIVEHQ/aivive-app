@@ -21,7 +21,45 @@ import {
 } from "lucide-react";
 import type { ComponentProps, HTMLAttributes, ReactElement } from "react";
 import { createContext, memo, useContext, useEffect, useState } from "react";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 import { Streamdown } from "streamdown";
+
+// Lift standalone images out of <p> wrappers so Streamdown's <div>-based image
+// component doesn't produce <div> inside <p> (invalid HTML → hydration error).
+const baseRehypePlugins = [rehypeUnwrapImages];
+
+// Streamdown's default image component wraps <img> in a <div>, which is invalid
+// when the image sits inline inside a paragraph with surrounding text. Override
+// with a plain inline-safe <img>.
+const SafeMarkdownImage = ({
+  alt,
+  src,
+  className: imgClassName,
+  node: _node,
+  ...rest
+}: React.ImgHTMLAttributes<HTMLImageElement> & { node?: unknown }) => {
+  if (typeof src !== "string" || !src) return null;
+  return (
+    <img
+      alt={alt ?? ""}
+      src={src}
+      loading="lazy"
+      decoding="async"
+      className={cn("my-2 inline-block max-w-full rounded-lg", imgClassName)}
+      {...rest}
+    />
+  );
+};
+
+const baseComponents: ComponentProps<typeof Streamdown>["components"] = {
+  img: SafeMarkdownImage as ComponentProps<
+    typeof Streamdown
+  >["components"] extends infer C
+    ? C extends { img?: infer I }
+      ? I
+      : never
+    : never,
+};
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
   from: UIMessage["role"];
@@ -307,12 +345,14 @@ export const MessageBranchPage = ({
 export type MessageResponseProps = ComponentProps<typeof Streamdown>;
 
 export const MessageResponse = memo(
-  ({ className, ...props }: MessageResponseProps) => (
+  ({ className, rehypePlugins, components, ...props }: MessageResponseProps) => (
     <Streamdown
       className={cn(
         "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
         className
       )}
+      rehypePlugins={[...baseRehypePlugins, ...(rehypePlugins ?? [])]}
+      components={{ ...baseComponents, ...(components ?? {}) }}
       {...props}
     />
   ),
