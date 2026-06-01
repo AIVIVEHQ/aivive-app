@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import PublicGallery from "@/components/gallery/PublicGallery";
+import GalleryShowcase from "@/components/gallery/GalleryShowcase";
 import { Loader2 } from "lucide-react";
 
 export async function generateMetadata({
@@ -41,7 +41,7 @@ export default function GalleryPage() {
 
       {/* Gallery Content */}
       <Suspense fallback={<LoadingGallery />}>
-        <PublicGallery />
+        <GalleryShowcase />
       </Suspense>
     </div>
   );

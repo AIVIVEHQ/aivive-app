@@ -17,6 +17,7 @@ import { User } from "@/types/user";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { NavItem } from "@/types/blocks/base";
+import { getFallbackAvatarUri } from "@/lib/avatar";
 
 function getInitials(name?: string | null): string | null {
   if (!name) return null;
@@ -59,6 +60,11 @@ export default function SignUser({ user }: { user: User }) {
   ];
 
   const initials = getInitials(user.nickname);
+  const fallbackAvatar = React.useMemo(
+    () => getFallbackAvatarUri(user.uuid || user.email || user.nickname || ""),
+    [user.uuid, user.email, user.nickname]
+  );
+  const avatarSrc = user.avatar_url || fallbackAvatar;
 
   return (
     <DropdownMenu>
@@ -69,10 +75,7 @@ export default function SignUser({ user }: { user: User }) {
           className="rounded-full outline-none ring-offset-background transition focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
         >
           <Avatar className="size-9 cursor-pointer border border-border/60 bg-muted/40 transition-colors hover:border-primary/40">
-            <AvatarImage
-              src={user.avatar_url}
-              alt={user.nickname || "Account"}
-            />
+            <AvatarImage src={avatarSrc} alt={user.nickname || "Account"} />
             <AvatarFallback className="bg-muted/60 text-[11px] font-medium tracking-wide text-foreground/80">
               {initials ?? (
                 <UserIcon
