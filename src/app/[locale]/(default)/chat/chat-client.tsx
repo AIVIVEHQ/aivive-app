@@ -57,7 +57,9 @@ import { Loader } from "@/components/ai-elements/loader";
 
 const AVATAR_ENABLED = process.env.NEXT_PUBLIC_AVATAR_ENABLED !== "false";
 
-const AvatarPanel = dynamic(() => import("./avatar-panel"), {
+import type { PetState } from "./pet-widget";
+
+const PetWidget = dynamic(() => import("./pet-widget"), {
   ssr: false,
   loading: () => null,
 });
@@ -273,6 +275,32 @@ export default function ChatClient() {
   );
 
   const isLoading = status === "submitted" || status === "streaming";
+
+  // Drive the pet's animation from chat status. When a stream finishes we
+  // flash a celebratory wave briefly, then settle back to idle.
+  const [petState, setPetState] = useState<PetState>("idle");
+  const prevStatusRef = useRef(status);
+  useEffect(() => {
+    const prev = prevStatusRef.current;
+    prevStatusRef.current = status;
+
+    if (status === "error") {
+      setPetState("failed");
+      return;
+    }
+    if (status === "submitted" || status === "streaming") {
+      setPetState("run");
+      return;
+    }
+    // status === "ready": just finished streaming -> wave, else idle
+    if (prev === "streaming") {
+      setPetState("wave");
+      const id = setTimeout(() => setPetState("idle"), 2500);
+      return () => clearTimeout(id);
+    }
+    setPetState("idle");
+  }, [status]);
+
   const canRegenerate =
     !isLoading &&
     messages.length > 0 &&
@@ -587,14 +615,7 @@ export default function ChatClient() {
         </div>
       </div>
 
-      {AVATAR_ENABLED && (
-        <aside
-          aria-label="AI avatar"
-          className="hidden w-72 shrink-0 overflow-hidden rounded-xl border bg-card shadow-sm lg:block xl:w-80"
-        >
-          <AvatarPanel />
-        </aside>
-      )}
+      {AVATAR_ENABLED && <PetWidget state={petState} />}
     </div>
   );
 }

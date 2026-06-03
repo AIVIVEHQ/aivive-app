@@ -74,12 +74,14 @@ export default function SignModal() {
   return (
     <Drawer open={showSignModal} onOpenChange={setShowSignModal}>
       <DrawerContent>
-        <DrawerHeader className="text-left">
+        <DrawerHeader className="text-left shrink-0">
           <DrawerTitle>{t(titleKey)}</DrawerTitle>
           <DrawerDescription>{t(descKey)}</DrawerDescription>
         </DrawerHeader>
-        <AuthForm className="px-4" {...formProps} />
-        <DrawerFooter className="pt-4">
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <AuthForm className="px-4" {...formProps} />
+        </div>
+        <DrawerFooter className="pt-4 shrink-0">
           <DrawerClose asChild>
             <Button variant="outline">{t("cancel_title")}</Button>
           </DrawerClose>

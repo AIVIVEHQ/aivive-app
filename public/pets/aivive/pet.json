@@ -1,0 +1,14 @@
+{
+  "id": "aivive",
+  "displayName": "AIVIVE",
+  "spritesheetPath": "spritesheet.webp",
+  "frame": { "w": 192, "h": 208 },
+  "cols": 6,
+  "frameDurationMs": 150,
+  "states": {
+    "idle": { "row": 0, "frames": 6 },
+    "wave": { "row": 1, "frames": 6 },
+    "run": { "row": 2, "frames": 6 },
+    "failed": { "row": 3, "frames": 6 }
+  }
+}

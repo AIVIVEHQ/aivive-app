@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 
 import { auth } from "@/auth";
 import SignIn from "@/components/sign/sign_in";
-import AvatarScripts from "./avatar-scripts";
 import ChatClient from "./chat-client";
 
 export async function generateMetadata({
@@ -42,10 +41,5 @@ export default async function ChatPage({
     );
   }
 
-  return (
-    <>
-      <AvatarScripts />
-      <ChatClient />
-    </>
-  );
+  return <ChatClient />;
 }

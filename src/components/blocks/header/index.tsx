@@ -275,40 +275,44 @@ export default function Header({ header }: { header: HeaderType }) {
                       );
                     })}
                   </Accordion>
+
+                  {(header.buttons?.length || header.show_sign) && (
+                    <div className="mt-2 flex flex-col gap-3 px-4 [&>div]:w-full [&>div]:justify-center [&>div]:px-0 [&_button]:w-full">
+                      {header.buttons?.map((item, i) => {
+                        return (
+                          <Button key={i} variant={item.variant} className="w-full">
+                            <Link
+                              href={item.url as any}
+                              target={item.target || ""}
+                              className="flex items-center justify-center gap-1"
+                            >
+                              {item.title}
+                              {item.icon && (
+                                <Icon
+                                  name={item.icon}
+                                  className="size-4 shrink-0"
+                                />
+                              )}
+                            </Link>
+                          </Button>
+                        );
+                      })}
+
+                      {header.show_sign && <SignToggle />}
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1"></div>
-                <div className="border-t pt-4">
-                  <div className="mt-2 flex flex-col gap-3">
-                    {header.buttons?.map((item, i) => {
-                      return (
-                        <Button key={i} variant={item.variant}>
-                          <Link
-                            href={item.url as any}
-                            target={item.target || ""}
-                            className="flex items-center gap-1"
-                          >
-                            {item.title}
-                            {item.icon && (
-                              <Icon
-                                name={item.icon}
-                                className="size-4 shrink-0"
-                              />
-                            )}
-                          </Link>
-                        </Button>
-                      );
-                    })}
+                {(header.show_locale || header.show_theme) && (
+                  <div className="border-t pt-4">
+                    <div className="flex items-center gap-2">
+                      {header.show_locale && <LocaleToggle />}
+                      <div className="flex-1"></div>
 
-                    {header.show_sign && <SignToggle />}
+                      {header.show_theme && <ThemeToggle />}
+                    </div>
                   </div>
-
-                  <div className="mt-4 flex items-center gap-2">
-                    {header.show_locale && <LocaleToggle />}
-                    <div className="flex-1"></div>
-
-                    {header.show_theme && <ThemeToggle />}
-                  </div>
-                </div>
+                )}
               </SheetContent>
             </Sheet>
           </div>
