@@ -30,7 +30,7 @@ const PremiumPromptInput = React.forwardRef<
       showExamples = false,
       examplePrompts = [],
       onExampleClick,
-      placeholder = "描述你想要生成的图片...",
+      placeholder = "Describe the image you want to generate...",
       ...props
     },
     ref
@@ -90,7 +90,7 @@ const PremiumPromptInput = React.forwardRef<
         {/* Label and Clear Button */}
         <div className="flex items-center justify-between">
           <label className="text-xs font-semibold text-white/70 uppercase tracking-wider">
-            提示词
+            Prompt
           </label>
           {internalValue && (
             <Button
@@ -100,7 +100,7 @@ const PremiumPromptInput = React.forwardRef<
               onClick={handleClear}
               className="h-auto py-1 px-2 text-xs text-muted-foreground hover:text-white"
             >
-              清除
+              Clear
             </Button>
           )}
         </div>
@@ -148,7 +148,7 @@ const PremiumPromptInput = React.forwardRef<
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-semibold text-white/60 uppercase tracking-wider">
               <Sparkles className="w-3 h-3" />
-              <span>示例提示词</span>
+              <span>Example Prompts</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {examplePrompts.map((prompt, idx) => (

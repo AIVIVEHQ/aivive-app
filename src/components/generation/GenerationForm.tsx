@@ -162,7 +162,7 @@ export default function GenerationForm({
               }`}
             >
               <Wand2 className="w-4 h-4" />
-              文字生图
+              Text to Image
             </button>
             <button
               type="button"
@@ -172,7 +172,7 @@ export default function GenerationForm({
               }`}
             >
               <ImageIcon className="w-4 h-4" />
-              图片生图
+              Image to Image
             </button>
           </div>
 
@@ -193,8 +193,8 @@ export default function GenerationForm({
             onChange={setPrompt}
             placeholder={
               mode === "image-to-image"
-                ? "描述你想对参考图片做的修改..."
-                : "描述你想要生成的图片..."
+                ? "Describe the changes you want to make to the reference image..."
+                : "Describe the image you want to generate..."
             }
             maxLength={1000}
           />
@@ -217,16 +217,16 @@ export default function GenerationForm({
               {generation.status === "submitting" ? (
                 <span className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                  生成中...
+                  Generating...
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  生成图片 <Wand2 className="w-4 h-4" />
+                  Generate Image <Wand2 className="w-4 h-4" />
                 </span>
               )}
             </Button>
             <div className="mt-3 flex justify-between items-center text-[10px] text-muted-foreground uppercase tracking-wider px-1">
-              <span>预计时间: ~30秒</span>
+              <span>Estimated time: ~30s</span>
             </div>
           </div>
         </form>
@@ -256,7 +256,7 @@ export default function GenerationForm({
               <span className="text-destructive text-lg">⚠</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-destructive mb-1">生成失败</p>
+              <p className="text-sm font-semibold text-destructive mb-1">Generation Failed</p>
               <p className="text-sm text-destructive/80">{generation.error}</p>
             </div>
           </div>
@@ -266,7 +266,7 @@ export default function GenerationForm({
             size="lg"
             className="w-full"
           >
-            重试
+            Retry
           </Button>
         </div>
       )}

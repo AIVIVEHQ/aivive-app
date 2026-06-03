@@ -19,7 +19,7 @@ export default function AspectRatioSelector({
   return (
     <div className="space-y-3">
       <label className="text-xs font-semibold text-white/70 uppercase tracking-wider">
-        纵横比
+        Aspect Ratio
       </label>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {ratios.map((ratio) => {

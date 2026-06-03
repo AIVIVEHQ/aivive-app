@@ -29,17 +29,17 @@ export default function GenerationProgress({
 
       {/* Premium progress text */}
       <div className="text-center space-y-3">
-        <h3 className="text-2xl font-serif font-semibold text-glow">正在生成图片...</h3>
+        <h3 className="text-2xl font-serif font-semibold text-glow">Generating image...</h3>
         <p className="text-white/60 font-light">
-          通常需要 30-60 秒
+          Usually takes 30-60 seconds
         </p>
       </div>
 
       {/* Premium progress stages */}
       <div className="w-full max-w-md space-y-3 px-6 py-5 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
-        <ProgressStage label="理解提示词" isActive />
-        <ProgressStage label="创建图片" isPending />
-        <ProgressStage label="优化细节" isPending />
+        <ProgressStage label="Understanding prompt" isActive />
+        <ProgressStage label="Creating image" isPending />
+        <ProgressStage label="Refining details" isPending />
       </div>
 
       {/* Generation UUID with premium styling */}

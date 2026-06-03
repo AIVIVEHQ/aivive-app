@@ -31,13 +31,13 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
     const processImage = async (file: File) => {
       // Validate file type
       if (!file.type.startsWith("image/")) {
-        toast.error("请上传图片文件");
+        toast.error("Please upload an image file");
         return;
       }
 
       // Validate file size
       if (file.size > maxSize * 1024 * 1024) {
-        toast.error(`图片大小不能超过 ${maxSize}MB`);
+        toast.error(`Image size cannot exceed ${maxSize}MB`);
         return;
       }
 
@@ -76,11 +76,11 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
             const base64 = canvas.toDataURL("image/jpeg", 0.9);
             onChange?.(base64);
             setIsProcessing(false);
-            toast.success("图片上传成功");
+            toast.success("Image uploaded successfully");
           };
 
           img.onerror = () => {
-            toast.error("图片加载失败");
+            toast.error("Failed to load image");
             setIsProcessing(false);
           };
 
@@ -88,13 +88,13 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
         };
 
         reader.onerror = () => {
-          toast.error("文件读取失败");
+          toast.error("Failed to read file");
           setIsProcessing(false);
         };
 
         reader.readAsDataURL(file);
       } catch (error) {
-        toast.error("图片处理失败");
+        toast.error("Failed to process image");
         setIsProcessing(false);
       }
     };
@@ -141,7 +141,7 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
       <div ref={ref} className="space-y-3" {...props}>
         <div className="flex items-center justify-between">
           <label className="text-xs font-semibold text-white/70 uppercase tracking-wider">
-            参考图片
+            Reference Image
           </label>
           {value && (
             <Button
@@ -151,7 +151,7 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
               onClick={handleRemove}
               className="h-auto py-1 px-2 text-xs text-muted-foreground hover:text-white"
             >
-              移除
+              Remove
             </Button>
           )}
         </div>
@@ -194,15 +194,15 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
               <div>
                 <p className="text-sm font-medium text-white/90 mb-1">
                   {isProcessing ? (
-                    "处理中..."
+                    "Processing..."
                   ) : (
                     <>
-                      <span className="text-white">点击上传</span> 或拖拽图片到此处
+                      <span className="text-white">Click to upload</span> or drag and drop an image here
                     </>
                   )}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  支持 JPG, PNG 格式，最大 {maxSize}MB
+                  Supports JPG, PNG, up to {maxSize}MB
                 </p>
               </div>
             </div>
@@ -220,7 +220,7 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
           <div className="relative rounded-xl overflow-hidden border border-white/20 bg-black/40 group">
             <img
               src={value}
-              alt="上传的图片"
+              alt="Uploaded image"
               className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition-opacity"
             />
 
@@ -241,7 +241,7 @@ const ImageUpload = React.forwardRef<HTMLDivElement, ImageUploadProps>(
             <div className="absolute top-2 left-2 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-lg border border-white/20">
               <div className="flex items-center gap-1.5 text-xs text-white/90">
                 <ImageIcon className="w-3 h-3" />
-                <span>参考图片</span>
+                <span>Reference Image</span>
               </div>
             </div>
           </div>
