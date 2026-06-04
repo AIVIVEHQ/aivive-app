@@ -31,7 +31,7 @@ import { Fragment } from "react";
 export default function SidebarUser({ account }: { account?: Account }) {
   const t = useTranslations();
 
-  const { user, setShowSignModal } = useAppContext();
+  const { user, gotoSignIn } = useAppContext();
   const { isMobile, open } = useSidebar();
 
   return (
@@ -121,7 +121,7 @@ export default function SidebarUser({ account }: { account?: Account }) {
         <>
           {open ? (
             <div className="flex justify-center items-center h-full px-4 py-4">
-              <Button className="w-full" onClick={() => setShowSignModal(true)}>
+              <Button className="w-full" onClick={() => gotoSignIn()}>
                 {t("user.sign_in")}
               </Button>
             </div>

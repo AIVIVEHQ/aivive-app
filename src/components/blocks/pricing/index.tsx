@@ -22,7 +22,7 @@ export default function Pricing({ pricing }: { pricing: PricingType }) {
 
   const locale = useLocale();
 
-  const { user, setShowSignModal } = useAppContext();
+  const { user, gotoSignIn } = useAppContext();
 
   const [group, setGroup] = useState(pricing.groups?.[0]?.name);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function Pricing({ pricing }: { pricing: PricingType }) {
   const handleCheckout = async (item: PricingItem, cn_pay: boolean = false) => {
     try {
       if (!user) {
-        setShowSignModal(true);
+        gotoSignIn("/pricing");
         return;
       }
 
@@ -61,7 +61,7 @@ export default function Pricing({ pricing }: { pricing: PricingType }) {
         setIsLoading(false);
         setProductId(null);
 
-        setShowSignModal(true);
+        gotoSignIn("/pricing");
         return;
       }
 

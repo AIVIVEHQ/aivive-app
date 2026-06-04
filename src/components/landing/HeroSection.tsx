@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { useAppContext } from "@/contexts/app";
 
 export default function HeroSection() {
-  const { user, setShowSignModal } = useAppContext();
+  const { user, gotoSignIn } = useAppContext();
   const router = useRouter();
 
   const handlePrimary = () => {
     if (!user) {
-      setShowSignModal(true);
+      gotoSignIn("/generate");
       return;
     }
     router.push("/generate");

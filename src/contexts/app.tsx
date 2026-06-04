@@ -16,7 +16,7 @@ import moment from "moment";
 import useOneTapLogin from "@/hooks/useOneTapLogin";
 import { useSession } from "next-auth/react";
 import { isAuthEnabled, isGoogleOneTapEnabled } from "@/lib/auth";
-import SignModal from "@/components/sign/modal";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 const AppContext = createContext({} as ContextValue);
 
@@ -26,8 +26,16 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   useOneTapLogin(isAuthEnabled() && isGoogleOneTapEnabled());
 
   const { data: session } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const [showSignModal, setShowSignModal] = useState<boolean>(false);
+  // Navigate to the dedicated sign-in page, returning to the current page
+  // after a successful login via the callbackUrl param.
+  const gotoSignIn = (callbackUrl?: string) => {
+    const target = callbackUrl || pathname || "/";
+    router.push(`/auth/signin?callbackUrl=${encodeURIComponent(target)}`);
+  };
+
   const [user, setUser] = useState<User | null>(null);
 
   const [showFeedback, setShowFeedback] = useState<boolean>(false);
@@ -116,8 +124,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppContext.Provider
       value={{
-        showSignModal,
-        setShowSignModal,
+        gotoSignIn,
         user,
         setUser,
         showFeedback,
@@ -125,7 +132,6 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-      {isAuthEnabled() && <SignModal />}
     </AppContext.Provider>
   );
 };

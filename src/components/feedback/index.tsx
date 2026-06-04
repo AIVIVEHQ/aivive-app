@@ -27,7 +27,7 @@ export default function Feedback({
 }) {
   const t = useTranslations();
 
-  const { user, setShowSignModal, showFeedback, setShowFeedback } =
+  const { user, gotoSignIn, showFeedback, setShowFeedback } =
     useAppContext();
 
   const [feedback, setFeedback] = useState("");
@@ -36,7 +36,7 @@ export default function Feedback({
 
   const handleSubmit = async () => {
     if (!user) {
-      setShowSignModal(true);
+      gotoSignIn();
       return;
     }
 

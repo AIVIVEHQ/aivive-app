@@ -7,12 +7,12 @@ import StyleCategories from "@/components/landing/StyleCategories";
 import MasonryGallery from "@/components/landing/MasonryGallery";
 
 export default function LandingPageClient() {
-  const { user, setShowSignModal } = useAppContext();
+  const { user, gotoSignIn } = useAppContext();
   const router = useRouter();
 
   const handleCta = () => {
     if (!user) {
-      setShowSignModal(true);
+      gotoSignIn("/generate");
       return;
     }
     router.push("/generate");

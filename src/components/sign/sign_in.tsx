@@ -6,12 +6,12 @@ import { useTranslations } from "next-intl";
 
 export default function SignIn() {
   const t = useTranslations();
-  const { setShowSignModal } = useAppContext();
+  const { gotoSignIn } = useAppContext();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setShowSignModal(true);
+    gotoSignIn();
   };
 
   return (
