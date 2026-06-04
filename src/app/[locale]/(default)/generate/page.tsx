@@ -14,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function GeneratePage() {
+  const t = await getTranslations("generation");
   const session = await auth();
   if (!session?.user?.uuid) {
     return (
@@ -40,7 +41,20 @@ export default async function GeneratePage() {
           </p>
         </div>
 
-        <GenerationForm />
+        {process.env.IMAGE_GENERATION_PAUSED === "true" ? (
+          <div className="mx-auto max-w-xl rounded-xl border-2 border-destructive/30 bg-destructive/5 backdrop-blur-sm p-6 flex items-start gap-3">
+            <div className="w-10 h-10 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0">
+              <span className="text-destructive text-lg">⚠</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-destructive mb-1">
+                {t("insufficient_credits")}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <GenerationForm />
+        )}
       </div>
     </div>
   );

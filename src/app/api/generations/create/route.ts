@@ -50,6 +50,15 @@ export async function POST(req: NextRequest) {
 
     const userUuid = session.user.uuid;
 
+    // Kill-switch: image generation temporarily paused (see IMAGE_GENERATION_PAUSED).
+    // Surfaced to users as "insufficient credits" rather than exposing upstream billing errors.
+    if (process.env.IMAGE_GENERATION_PAUSED === "true") {
+      return NextResponse.json(
+        { error: "Insufficient credits", code: "INSUFFICIENT_CREDITS" },
+        { status: 402 }
+      );
+    }
+
     // 2. Parse and validate request body
     const body = await req.json();
     const {
