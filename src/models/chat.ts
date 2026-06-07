@@ -42,8 +42,9 @@ export async function upsertUserChatConversation(params: {
   userUuid: string;
   messages: UIMessage[];
   modelId?: string;
+  personaId?: string;
 }): Promise<ChatConversationRow> {
-  const { uuid, userUuid, messages, modelId } = params;
+  const { uuid, userUuid, messages, modelId, personaId } = params;
   const derivedTitle = deriveTitle(messages);
   const now = new Date();
 
@@ -54,6 +55,7 @@ export async function upsertUserChatConversation(params: {
       user_uuid: userUuid,
       title: derivedTitle,
       model_id: modelId,
+      persona_id: personaId,
       messages: messages as unknown as ChatConversationRow["messages"],
       created_at: now,
       updated_at: now,
@@ -63,6 +65,8 @@ export async function upsertUserChatConversation(params: {
       set: {
         messages: messages as unknown as ChatConversationRow["messages"],
         model_id: modelId,
+        // persona_id is set on insert and intentionally preserved on update:
+        // a conversation never changes the character it was started with.
         updated_at: now,
       },
     })

@@ -14,6 +14,7 @@ export async function GET() {
       uuid: r.uuid,
       title: r.title,
       model_id: r.model_id,
+      persona_id: r.persona_id,
       created_at: r.created_at,
       updated_at: r.updated_at,
     })),

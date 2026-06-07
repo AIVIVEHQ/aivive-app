@@ -24,6 +24,7 @@ export async function GET(_req: Request, { params }: RouteContext) {
       uuid: row.uuid,
       title: row.title,
       model_id: row.model_id,
+      persona_id: row.persona_id,
       messages: row.messages,
       created_at: row.created_at,
       updated_at: row.updated_at,

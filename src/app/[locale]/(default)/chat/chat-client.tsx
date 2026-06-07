@@ -54,6 +54,13 @@ import {
   ToolOutput,
 } from "@/components/ai-elements/tool";
 import { Loader } from "@/components/ai-elements/loader";
+import {
+  PERSONAS,
+  DEFAULT_PERSONA_ID,
+  getPersona,
+  getPersonaAvatar,
+  type Persona,
+} from "@/lib/personas";
 
 const AVATAR_ENABLED = process.env.NEXT_PUBLIC_AVATAR_ENABLED !== "false";
 
@@ -67,8 +74,19 @@ const PetWidget = dynamic(() => import("./pet-widget"), {
 type ConversationSummary = {
   uuid: string;
   title: string;
+  persona_id?: string | null;
   updated_at: string | null;
 };
+
+// Build the persona's opening line as a seeded assistant message so a fresh
+// chat starts in-character instead of on a blank screen.
+function greetingMessage(persona: Persona): UIMessage {
+  return {
+    id: `greeting-${persona.id}`,
+    role: "assistant",
+    parts: [{ type: "text", text: persona.greeting }],
+  } as UIMessage;
+}
 
 function extractText(message: UIMessage): string {
   const parts = (message as { parts?: Array<{ type: string; text?: string }> })
@@ -98,7 +116,17 @@ export default function ChatClient() {
   const conversationIdRef = useRef<string>(draftId);
   conversationIdRef.current = activeId ?? draftId;
 
-  const [initialMessages, setInitialMessages] = useState<UIMessage[]>([]);
+  // The companion the user is currently talking to. A conversation is bound to
+  // one persona; switching personas starts a fresh chat (see selectPersona).
+  const [activePersonaId, setActivePersonaId] =
+    useState<string>(DEFAULT_PERSONA_ID);
+  const personaIdRef = useRef<string>(activePersonaId);
+  personaIdRef.current = activePersonaId;
+  const activePersona = getPersona(activePersonaId);
+
+  const [initialMessages, setInitialMessages] = useState<UIMessage[]>(() => [
+    greetingMessage(getPersona(DEFAULT_PERSONA_ID)),
+  ]);
   const [editingTitleId, setEditingTitleId] = useState<string | null>(null);
   const [titleDraft, setTitleDraft] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -132,7 +160,10 @@ export default function ChatClient() {
     () =>
       new DefaultChatTransport({
         api: "/api/chat",
-        body: () => ({ conversationId: conversationIdRef.current }),
+        body: () => ({
+          conversationId: conversationIdRef.current,
+          personaId: personaIdRef.current,
+        }),
       }),
     []
   );
@@ -165,12 +196,20 @@ export default function ChatClient() {
     },
   });
 
-  function startNewChat() {
+  function startNewChat(personaId: string = activePersonaId) {
     if (status === "submitted" || status === "streaming") stop();
+    setActivePersonaId(personaId);
     setActiveId(null);
     setDraftId(newId());
-    setInitialMessages([]);
+    setInitialMessages([greetingMessage(getPersona(personaId))]);
     setSidebarOpen(false);
+  }
+
+  // Switching companion = start a fresh chat with that persona. No-op if the
+  // user taps the persona they're already talking to.
+  function selectPersona(personaId: string) {
+    if (personaId === activePersonaId && !activeId) return;
+    startNewChat(personaId);
   }
 
   async function openConversation(uuid: string) {
@@ -181,10 +220,17 @@ export default function ChatClient() {
         return;
       }
       const data = (await res.json()) as {
-        conversation: { uuid: string; messages: UIMessage[] };
+        conversation: {
+          uuid: string;
+          persona_id?: string | null;
+          messages: UIMessage[];
+        };
       };
       const loaded = data.conversation.messages ?? [];
       if (status === "submitted" || status === "streaming") stop();
+      // Restore the persona this conversation was started with so the header,
+      // suggestions, and outgoing personaId all match the loaded character.
+      setActivePersonaId(getPersona(data.conversation.persona_id).id);
       setActiveId(data.conversation.uuid);
       setInitialMessages(loaded);
       setSidebarOpen(false);
@@ -265,16 +311,20 @@ export default function ChatClient() {
   }
 
   const suggestions = useMemo(
-    () => [
-      t("suggestionExplain"),
-      t("suggestionWrite"),
-      t("suggestionDebug"),
-      t("suggestionBrainstorm"),
-    ],
-    [t]
+    () =>
+      activePersona.suggestions ?? [
+        t("suggestionExplain"),
+        t("suggestionWrite"),
+        t("suggestionDebug"),
+        t("suggestionBrainstorm"),
+      ],
+    [activePersona, t]
   );
 
   const isLoading = status === "submitted" || status === "streaming";
+  // A fresh persona chat shows only the greeting; keep starters visible until
+  // the user actually says something.
+  const hasUserMessage = messages.some((m) => m.role === "user");
 
   // Drive the pet's animation from chat status. When a stream finishes we
   // flash a celebratory wave briefly, then settle back to idle.
@@ -303,7 +353,7 @@ export default function ChatClient() {
 
   const canRegenerate =
     !isLoading &&
-    messages.length > 0 &&
+    hasUserMessage &&
     messages[messages.length - 1]?.role === "assistant";
 
   return (
@@ -360,16 +410,30 @@ export default function ChatClient() {
                 </div>
               </SheetContent>
             </Sheet>
-            <div className="flex min-w-0 items-center gap-2">
-              <span
+            <div className="flex min-w-0 items-center gap-2.5">
+              <img
+                src={getPersonaAvatar(activePersona)}
+                alt=""
                 aria-hidden
-                className="size-1.5 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)]"
+                className="size-8 shrink-0 rounded-full border border-border/60 bg-background"
               />
-              <h1 className="truncate text-sm font-medium text-foreground/90 sm:text-base">
-                {activeTitle(activeId, conversations, t)}
-              </h1>
+              <div className="flex min-w-0 flex-col">
+                <h1 className="truncate text-sm font-medium leading-tight text-foreground/90 sm:text-base">
+                  {activePersona.name}
+                </h1>
+                <span className="truncate text-xs leading-tight text-muted-foreground">
+                  {activeId
+                    ? activeTitle(activeId, conversations, t)
+                    : activePersona.tagline}
+                </span>
+              </div>
             </div>
           </div>
+
+          <PersonaSwitcher
+            activePersonaId={activePersonaId}
+            onSelect={selectPersona}
+          />
         </header>
 
         <Conversation className="min-h-0 flex-1">
@@ -541,7 +605,7 @@ export default function ChatClient() {
 
         <div className="border-t border-border/60 bg-background/40 px-3 pb-3 pt-3 md:px-4">
           <div className="mx-auto w-full max-w-3xl">
-            {messages.length === 0 && (
+            {!hasUserMessage && (
               <Suggestions className="mb-2.5 justify-center">
                 {suggestions.map((s) => (
                   <Suggestion
@@ -616,6 +680,44 @@ export default function ChatClient() {
       </div>
 
       {AVATAR_ENABLED && <PetWidget state={petState} />}
+    </div>
+  );
+}
+
+function PersonaSwitcher({
+  activePersonaId,
+  onSelect,
+}: {
+  activePersonaId: string;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <div className="flex shrink-0 items-center gap-1.5">
+      {PERSONAS.map((p) => {
+        const isActive = p.id === activePersonaId;
+        return (
+          <button
+            key={p.id}
+            type="button"
+            onClick={() => onSelect(p.id)}
+            title={`${p.name} · ${p.tagline}`}
+            aria-pressed={isActive}
+            aria-label={p.name}
+            className={cn(
+              "relative rounded-full transition-all",
+              isActive
+                ? "ring-2 ring-primary ring-offset-1 ring-offset-background"
+                : "opacity-60 hover:opacity-100"
+            )}
+          >
+            <img
+              src={getPersonaAvatar(p)}
+              alt=""
+              className="size-7 rounded-full border border-border/60 bg-background"
+            />
+          </button>
+        );
+      })}
     </div>
   );
 }

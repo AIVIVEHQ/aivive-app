@@ -11,16 +11,9 @@ import { resolveServerDefaultModel } from "@/aisdk/models/chat-models";
 import { getCryptoPrice } from "@/aisdk/tools/crypto";
 import { getWeather } from "@/aisdk/tools/weather";
 import { upsertUserChatConversation } from "@/models/chat";
+import { composeSystemPrompt, getPersona } from "@/lib/personas";
 
 export const maxDuration = 60;
-
-const SYSTEM_PROMPT = [
-  "You are a helpful, concise assistant.",
-  "Reply in the same language the user writes in.",
-  "Use Markdown when it improves clarity (code blocks for code, lists for enumerations).",
-  "When the user asks about weather, temperature, or conditions for a place, call the getWeather tool with the location name before answering.",
-  "When the user asks about cryptocurrency price, market cap, or 24-hour change, call the getCryptoPrice tool before answering.",
-].join(" ");
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -36,7 +29,11 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: { messages?: UIMessage[]; conversationId?: string };
+  let body: {
+    messages?: UIMessage[];
+    conversationId?: string;
+    personaId?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -60,11 +57,13 @@ export async function POST(req: Request) {
   }
 
   const modelId = resolveServerDefaultModel();
+  // Resolve the companion persona; unknown/missing ids fall back to default.
+  const persona = getPersona(body.personaId);
 
   try {
     const result = streamText({
       model: ark(modelId),
-      system: SYSTEM_PROMPT,
+      system: composeSystemPrompt(persona),
       messages: await convertToModelMessages(messages),
       tools: { getWeather, getCryptoPrice },
       stopWhen: stepCountIs(3),
@@ -81,6 +80,7 @@ export async function POST(req: Request) {
             userUuid,
             messages: finalMessages,
             modelId,
+            personaId: persona.id,
           });
         } catch (err) {
           console.error("chat persist failed:", err);

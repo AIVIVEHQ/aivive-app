@@ -272,6 +272,9 @@ export const chatConversations = pgTable(
     user_uuid: varchar({ length: 255 }).notNull(),
     title: varchar({ length: 255 }).notNull().default(""),
     model_id: varchar({ length: 100 }),
+    // Companion persona this conversation belongs to (see src/lib/personas.ts).
+    // Soft reference: unknown ids fall back to the default persona.
+    persona_id: varchar({ length: 100 }),
     messages: jsonb().notNull().default(sql`'[]'::jsonb`),
     created_at: timestamp({ withTimezone: true }).defaultNow(),
     updated_at: timestamp({ withTimezone: true }).defaultNow(),

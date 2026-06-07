@@ -1,0 +1,1 @@
+ALTER TABLE "chat_conversations" ADD COLUMN "persona_id" varchar(100);
