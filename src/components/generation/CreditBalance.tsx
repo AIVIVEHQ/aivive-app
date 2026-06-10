@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Coins } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -61,15 +60,6 @@ export default function CreditBalance({ balance }: CreditBalanceProps) {
           </p>
         </div>
       </div>
-
-      {isLow && (
-        <Link
-          href="/pricing"
-          className="px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
-          Buy Credits
-        </Link>
-      )}
     </div>
   );
 }

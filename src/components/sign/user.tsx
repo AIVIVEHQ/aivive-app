@@ -42,17 +42,9 @@ export default function SignUser({ user }: { user: User }) {
       title: user.nickname,
     },
     {
-      title: t("user.user_center"),
-      url: "/my-orders",
-    },
-    {
       title: t("user.my_history"),
       url: "/my-history",
     },
-    // {
-    //   title: t("user.admin_system"),
-    //   url: "/admin/users", 
-    // },
     {
       title: t("user.sign_out"),
       onClick: () => signOut(),
@@ -92,10 +84,14 @@ export default function SignUser({ user }: { user: User }) {
           <React.Fragment key={index}>
             <DropdownMenuItem
               key={index}
-              className="cursor-pointer p-0" // Remove default padding/flex for full control over child
+              className="cursor-pointer p-0"
             >
               {item.url ? (
-                <Link href={item.url as any} target={item.target} className="block w-full text-left p-2">
+                <Link
+                  href={item.url as any}
+                  target={item.target}
+                  className="block w-full text-left p-2"
+                >
                   {item.title}
                 </Link>
               ) : (

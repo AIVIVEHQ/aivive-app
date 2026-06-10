@@ -30,11 +30,6 @@
           "title": "公共图库",
           "url": "/gallery",
           "icon": "RiGalleryLine"
-        },
-        {
-          "title": "定价",
-          "url": "/pricing",
-          "icon": "RiMoneyDollarCircleLine"
         }
       ]
     },
@@ -50,14 +45,14 @@
     "announcement": {
       "label": "2025",
       "title": "✨ 全新功能：图片生图",
-      "url": "/pricing"
+      "url": "/generate"
     },
     "tip": "",
     "buttons": [
       {
         "title": "开始创作",
         "icon": "RiFlashlightFill",
-        "url": "/pricing",
+        "url": "/generate",
         "target": "_self",
         "variant": "default"
       },
@@ -370,12 +365,6 @@
         "url": "/login",
         "target": "_self",
         "icon": "GoArrowUpRight"
-      },
-      {
-        "title": "查看定价",
-        "url": "/pricing",
-        "target": "_self",
-        "variant": "outline"
       }
     ]
   },
@@ -403,11 +392,6 @@
             {
               "title": "案例展示",
               "url": "/#showcase",
-              "target": "_self"
-            },
-            {
-              "title": "定价",
-              "url": "/#pricing",
               "target": "_self"
             }
           ]

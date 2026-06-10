@@ -121,12 +121,6 @@ export default async function AdminLayout({
           icon: "RiHomeLine",
           target: "_blank",
         },
-        {
-          title: "Recharge",
-          url: "/pricing",
-          icon: "RiMoneyDollarBoxLine",
-          target: "_blank",
-        },
       ],
     },
   };

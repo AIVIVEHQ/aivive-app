@@ -30,11 +30,6 @@
           "title": "Gallery",
           "url": "/gallery",
           "icon": "RiGalleryLine"
-        },
-        {
-          "title": "Pricing",
-          "url": "/pricing",
-          "icon": "RiMoneyDollarCircleLine"
         }
       ]
     },
@@ -50,14 +45,14 @@
     "announcement": {
       "label": "2025",
       "title": "✨ New: Image-to-Image Generation",
-      "url": "/pricing"
+      "url": "/generate"
     },
     "tip": "",
     "buttons": [
       {
         "title": "Start Creating",
         "icon": "RiFlashlightFill",
-        "url": "/pricing",
+        "url": "/generate",
         "target": "_self",
         "variant": "default"
       },
@@ -370,12 +365,6 @@
         "url": "/login",
         "target": "_self",
         "icon": "GoArrowUpRight"
-      },
-      {
-        "title": "View Pricing",
-        "url": "/pricing",
-        "target": "_self",
-        "variant": "outline"
       }
     ]
   },
@@ -403,11 +392,6 @@
             {
               "title": "Gallery",
               "url": "/gallery",
-              "target": "_self"
-            },
-            {
-              "title": "Pricing",
-              "url": "/pricing",
               "target": "_self"
             }
           ]
