@@ -47,3 +47,6 @@ supabase
 
 plans
 .env*
+
+# internal wiki checkout (not part of the build)
+AIVEVE-wiki/
